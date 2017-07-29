@@ -1,4 +1,4 @@
-package com.example.wanderson.acheivagamap;
+package com.example.wanderson.acheivagamap.Fragments;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;

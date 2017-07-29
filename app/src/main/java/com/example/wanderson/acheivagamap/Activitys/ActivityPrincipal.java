@@ -1,4 +1,4 @@
-package com.example.wanderson.acheivagamap;
+package com.example.wanderson.acheivagamap.Activitys;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.wanderson.acheivagamap.Fragments.MapsFragment;
+import com.example.wanderson.acheivagamap.R;
 
 public class ActivityPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

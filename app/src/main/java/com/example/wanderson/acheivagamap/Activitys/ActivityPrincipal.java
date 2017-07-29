@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.wanderson.acheivagamap.Fragments.LoginFragment;
 import com.example.wanderson.acheivagamap.Fragments.MapsFragment;
 import com.example.wanderson.acheivagamap.R;
 
@@ -41,6 +42,7 @@ public class ActivityPrincipal extends AppCompatActivity
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
+
         transaction.commitAllowingStateLoss();
     }
 

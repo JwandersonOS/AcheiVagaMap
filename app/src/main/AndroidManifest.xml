@@ -42,6 +42,10 @@
         <activity
             android:name=".Fragments.MapsFragment"
             android:label="@string/title_activity_maps"></activity>
+        <activity android:name=".Fragments.LoginFragment" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".Activitys.ActivityAdmin" android:parentActivityName=".Fragments.LoginFragment"/>
     </application>
+
+
 
 </manifest>

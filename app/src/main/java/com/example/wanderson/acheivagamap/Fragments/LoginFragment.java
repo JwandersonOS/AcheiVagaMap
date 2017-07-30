@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.wanderson.acheivagamap.Activitys.ActivityAdmin;
-import com.example.wanderson.acheivagamap.Activitys.Usuario;
+import com.example.wanderson.acheivagamap.Entidades.Usuario;
 import com.example.wanderson.acheivagamap.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

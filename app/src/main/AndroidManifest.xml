@@ -21,11 +21,7 @@
             android:name=".Activitys.ActivityPrincipal"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -42,8 +38,18 @@
         <activity
             android:name=".Fragments.MapsFragment"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".Fragments.LoginFragment" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".Fragments.LoginFragment" android:parentActivityName=".Activitys.ActivityPrincipal">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activitys.ActivityAdmin" android:parentActivityName=".Fragments.LoginFragment"/>
+        <activity android:name=".Activitys.ActivityCadastrarUsuario"></activity>
+        <activity android:name=".Activitys.ActivityCadastrarEstacionamento">
+
+        </activity>
     </application>
 
 

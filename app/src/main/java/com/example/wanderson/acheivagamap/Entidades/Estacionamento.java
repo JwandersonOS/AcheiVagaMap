@@ -1,4 +1,4 @@
-package com.example.wanderson.acheivagamap.Activitys;
+package com.example.wanderson.acheivagamap.Entidades;
 
 import java.io.Serializable;
 

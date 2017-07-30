@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.wanderson.acheivagamap.Entidades.Estacionamento;
 import com.example.wanderson.acheivagamap.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,7 +26,7 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cadastrar_Estacionamento_activity);
+        setContentView(R.layout.cadastrar_estacionamento_activity);
 
         edtPropriet = (EditText) findViewById(R.id.edtPropriet);
         edtEstac = (EditText) findViewById(R.id.edtEstac);
@@ -52,6 +54,8 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
                 estacionamento.setEmailEstacionamento(edtEmail.getText().toString());
 
                 estacionamentoReference.child(edtPropriet.getText().toString()).setValue(estacionamento);
+                Toast.makeText(ActivityCadastrarEstacionamento.this, "Estacionamento Salvo." ,
+                        Toast.LENGTH_LONG).show();
 
                 edtPropriet.setText("");
                 edtEstac.setText("");

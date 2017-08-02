@@ -8,6 +8,11 @@ package com.example.wanderson.acheivagamap.Entidades;
 public class Usuario {
     private String loginUsuario, senhaUsuario;
 
+
+    public Usuario(){
+
+    }
+
     public String getLoginUsuario() {
         return loginUsuario;
     }

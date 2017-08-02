@@ -35,8 +35,25 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        LatLng futuroEstac = new LatLng(-7.2030891, -39.3196580);
+        mMap.addMarker(new MarkerOptions().position(futuroEstac).title("Futuro Estacionamento"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(futuroEstac));
+
+        LatLng estacMotoPark = new LatLng(-7.2029291, -39.3180269);
+        mMap.addMarker(new MarkerOptions().position(estacMotoPark).title("Estacionamento Moto Park"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(estacMotoPark));
+
+        LatLng estacSaoJose = new LatLng(-7.2040820, -39.3200989);
+        mMap.addMarker(new MarkerOptions().position(estacSaoJose).title("Estacionamento São José"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(estacSaoJose));
+
+        LatLng estacPlaza = new LatLng(-7.2061060, -39.3190991);
+        mMap.addMarker(new MarkerOptions().position(estacPlaza).title("Estacionamento Plaza"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(estacPlaza));
+
+        LatLng estacEldorado = new LatLng(-7.2055160, -39.3194038);
+        mMap.addMarker(new MarkerOptions().position(estacEldorado).title("Estacionamento Eldorado"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(estacEldorado));
     }
 }

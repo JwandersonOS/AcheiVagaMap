@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.wanderson.acheivagamap.Activitys.ActivityAdmin;
+import com.example.wanderson.acheivagamap.DAO.ConfiguracaoFirebase;
 import com.example.wanderson.acheivagamap.Entidades.Usuario;
 import com.example.wanderson.acheivagamap.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,13 +43,13 @@ public class LoginFragment extends AppCompatActivity {
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnLogin = (Button) findViewById(R.id.btnLogin);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = ConfiguracaoFirebase.getFirebaseAutenticacao();
         usuarios = new Usuario();
-
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 usuarios.setLoginUsuario(edtLogin.getText().toString());
                 usuarios.setSenhaUsuario(edtSenha.getText().toString());
 
@@ -90,6 +92,8 @@ public class LoginFragment extends AppCompatActivity {
     modifiquei para o nome autenticarUsuario
     */
     private void autenticarUsuario(String email, String password) {
+
+
         Log.d(TAG, "signIn:" + email);
 
         if((!email.equals(""))&&(!password.equals(""))){

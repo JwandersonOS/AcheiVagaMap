@@ -1,6 +1,13 @@
 package com.example.wanderson.acheivagamap.Entidades;
 
+import com.example.wanderson.acheivagamap.DAO.ConfiguracaoFirebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by anton on 11/06/2017.
@@ -16,6 +23,32 @@ public class Estacionamento implements Serializable {
     private String bairroEstacionamento;
     private String cidEstacionamento;
     private String EmailEstacionamento;
+
+    public Estacionamento(){
+
+    }
+    public void salvar(){
+        DatabaseReference databaseReference = ConfiguracaoFirebase.getFirebase();
+        databaseReference.child("estacionamento").child(String.valueOf(getNomeEstacionamento())).setValue(this);
+
+    }
+    @Exclude
+
+    public Map<String,Object> toMap(){
+        HashMap<String,Object> hashMapEstacionamento = new HashMap<>();
+
+        hashMapEstacionamento.put("proprietario", getProprietEstacionamento());
+        hashMapEstacionamento.put("nomeEstacionamento", getNomeEstacionamento());
+        hashMapEstacionamento.put("cnpj", getCnpjEstacionamento());
+        hashMapEstacionamento.put("telefone", getFoneEstacionamento());
+        hashMapEstacionamento.put("endereco", getEndEstacionamento());
+        hashMapEstacionamento.put("bairro", getBairroEstacionamento());
+        hashMapEstacionamento.put("cidade", getCidEstacionamento());
+        hashMapEstacionamento.put("email", getEmailEstacionamento());
+
+        return hashMapEstacionamento;
+    }
+
 
     public String getProprietEstacionamento() {
         return proprietEstacionamento;

@@ -14,13 +14,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ActivityCadastrarEstacionamento extends AppCompatActivity {
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference estacionamentoReference = databaseReference.child("estacionamento");
-
     private Button btnSalvar, btnListar;
     private EditText edtPropriet, edtEstac, edtCNPJ,
                      edtTelefone, edtEndereco, edtBairro,
                      edtCidade, edtEmail;
+    private Estacionamento estacionamento;
 
 
     @Override
@@ -53,9 +51,6 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
                 estacionamento.setCidEstacionamento(edtCidade.getText().toString());
                 estacionamento.setEmailEstacionamento(edtEmail.getText().toString());
 
-                estacionamentoReference.child(edtPropriet.getText().toString()).setValue(estacionamento);
-                Toast.makeText(ActivityCadastrarEstacionamento.this, "Estacionamento Salvo." ,
-                        Toast.LENGTH_LONG).show();
 
                 edtPropriet.setText("");
                 edtEstac.setText("");
@@ -68,5 +63,6 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
 
             }
         });
+        estacionamento.salvar();
     }
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.wanderson.acheivagamap.DAO.ConfiguracaoFirebase;
 import com.example.wanderson.acheivagamap.Entidades.Usuario;
 import com.example.wanderson.acheivagamap.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +36,7 @@ public class ActivityCadastrarUsuario extends AppCompatActivity {
         edtConfSenha = (EditText) findViewById(R.id.edtConfSenha);
         btnCadUsuario = (Button) findViewById(R.id.btnCadUsuario);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = ConfiguracaoFirebase.getFirebaseAutenticacao();
         usuarios = new Usuario();
 
         btnCadUsuario.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +52,7 @@ public class ActivityCadastrarUsuario extends AppCompatActivity {
                     edtConfSenha.setText("");
                     Toast.makeText(ActivityCadastrarUsuario.this, "Cadastro de usuário efetuado com sucesso." ,
                             Toast.LENGTH_LONG).show();
+
                 }else{
                     Toast.makeText(ActivityCadastrarUsuario.this, "As senhas digitadas são diferentes." ,
                             Toast.LENGTH_LONG).show();
@@ -70,6 +72,8 @@ public class ActivityCadastrarUsuario extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(ActivityCadastrarUsuario.this, "Usuário cadastrado com sucesso.",
+                                    Toast.LENGTH_SHORT).show();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.

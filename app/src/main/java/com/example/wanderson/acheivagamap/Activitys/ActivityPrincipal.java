@@ -42,6 +42,7 @@ public class ActivityPrincipal extends AppCompatActivity
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
+        //transaction.add(R.id.loginfragment, new LoginFragment(), "LoginFragment");
 
         transaction.commitAllowingStateLoss();
     }

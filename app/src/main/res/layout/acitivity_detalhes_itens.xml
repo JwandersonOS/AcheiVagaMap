@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="INFORMAÇÕES DO ESTACIONAMENTO"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Nome do Proprietario:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textProprie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Nome do Estacionamento:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textEstacio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="CNPJ:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textCNPJ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Telefone:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textTelefone"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Endereço:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textEndereco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Bairro:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textBairro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Cidade:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textCidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Login (e-mail):"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+</LinearLayout>

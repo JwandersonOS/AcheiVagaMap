@@ -1,6 +1,5 @@
 package com.example.wanderson.acheivagamap.Fragments;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -41,19 +40,19 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         // Add a marker in Sydney and move the camera
 
         LatLng futuroEstac = new LatLng(-7.2030891, -39.3196580);
-        mMap.addMarker(new MarkerOptions().position(futuroEstac).title("Futuro Estacionamento").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+        mMap.addMarker(new MarkerOptions().position(futuroEstac).title("Futuro Estacionamento").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_maior)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(futuroEstac));
 
         LatLng estacMotoPark = new LatLng(-7.2029291, -39.3180269);
-        mMap.addMarker(new MarkerOptions().position(estacMotoPark).title("Estacionamento Moto Park").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+        mMap.addMarker(new MarkerOptions().position(estacMotoPark).title("Estacionamento Moto Park").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_maior)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(estacMotoPark));
 
         LatLng estacSaoJose = new LatLng(-7.2040820, -39.3200989);
-        mMap.addMarker(new MarkerOptions().position(estacSaoJose).title("Estacionamento São José").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+        mMap.addMarker(new MarkerOptions().position(estacSaoJose).title("Estacionamento São José").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_maior)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(estacSaoJose));
 
         LatLng estacPlaza = new LatLng(-7.2061060, -39.3190991);
-        mMap.addMarker(new MarkerOptions().position(estacPlaza).title("Estacionamento Plaza").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+        mMap.addMarker(new MarkerOptions().position(estacPlaza).title("Estacionamento Plaza").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_maior)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(estacPlaza));
 
         LatLng estacEldorado = new LatLng(-7.2055160, -39.3194038);

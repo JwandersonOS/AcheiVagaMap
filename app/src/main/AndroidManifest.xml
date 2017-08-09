@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".View.ActivityCadastrarEstacionamento"
+            android:name=".View.Activity_Login"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -41,12 +41,12 @@
         <activity
             android:name=".Fragments.MapsFragment"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".Activitys.ActivityAdmin" android:parentActivityName=".Fragments.LoginFragment"/>
-        <activity android:name=".Activitys.ActivityCadastrarUsuario"></activity>
-        <activity android:name=".Activitys.ActivityCadastrarEstacionamento"></activity>
-        <activity android:name=".Activitys.Activity_Detalhes_Itens"></activity>
-        <activity android:name=".Activitys.ActivityFiltro" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
-        <activity android:name=".Activitys.Activity_Lista_Estacionamento" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".View.ActivityAdmin" android:parentActivityName=".Activitys.ActivityPrincipal"/>
+        <activity android:name=".View.ActivityCadastrarUsuario"></activity>
+        <activity android:name=".View.ActivityCadastrarEstacionamento"></activity>
+        <activity android:name=".View.Activity_Detalhes_Itens"></activity>
+        <activity android:name=".View.ActivityFiltro" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".View.Activity_Lista_Estacionamento" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
 
     </application>
 

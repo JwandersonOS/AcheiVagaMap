@@ -56,7 +56,7 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         mMap.moveCamera(CameraUpdateFactory.newLatLng(estacPlaza));
 
         LatLng estacEldorado = new LatLng(-7.2055160, -39.3194038);
-        mMap.addMarker(new MarkerOptions().position(estacEldorado).title("Estacionamento Eldorado"));
+        mMap.addMarker(new MarkerOptions().position(estacEldorado).title("Estacionamento Eldorado").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_maior)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(estacEldorado));
     }
 

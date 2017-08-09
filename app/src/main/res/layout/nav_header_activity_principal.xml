@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.wanderson.acheivagamap.View.ActivityPrincipal">
+    tools:context="com.example.wanderson.acheivagamap.Activitys.ActivityPrincipal">
 
         <LinearLayout
         android:layout_width="match_parent"

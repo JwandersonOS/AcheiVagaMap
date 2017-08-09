@@ -1,10 +1,10 @@
-package com.example.wanderson.acheivagamap.Activitys;
+package com.example.wanderson.acheivagamap.View;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.example.wanderson.acheivagamap.Entidades.Estacionamento;
+import com.example.wanderson.acheivagamap.Model.Estacionamento;
 import com.example.wanderson.acheivagamap.R;
 
 /**

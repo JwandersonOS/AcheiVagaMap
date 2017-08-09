@@ -1,4 +1,4 @@
-package com.example.wanderson.acheivagamap.Activitys;
+package com.example.wanderson.acheivagamap.View;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.wanderson.acheivagamap.Entidades.Estacionamento;
+import com.example.wanderson.acheivagamap.Model.Estacionamento;
+import com.example.wanderson.acheivagamap.Presenter.EstacionamentoDao;
 import com.example.wanderson.acheivagamap.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class ActivityCadastrarEstacionamento extends AppCompatActivity {
 
@@ -18,7 +17,10 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
     private EditText edtPropriet, edtEstac, edtCNPJ,
                      edtTelefone, edtEndereco, edtBairro,
                      edtCidade, edtEmail;
-    private Estacionamento estacionamento;
+
+    EstacionamentoDao estacionamentoDao = new EstacionamentoDao();
+    Estacionamento  estacionamento= new Estacionamento();
+
 
 
     @Override
@@ -40,8 +42,6 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Estacionamento estacionamento = new Estacionamento();
                 estacionamento.setProprietEstacionamento(edtPropriet.getText().toString());
                 estacionamento.setNomeEstacionamento(edtEstac.getText().toString());
                 estacionamento.setCnpjEstacionamento(edtCNPJ.getText().toString());
@@ -60,9 +60,12 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
                 edtBairro.setText("");
                 edtCidade.setText("");
                 edtEmail.setText("");
+                estacionamentoDao.salvar(estacionamento);
+                Toast.makeText(ActivityCadastrarEstacionamento.this, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show();
 
             }
         });
-        estacionamento.salvar();
+
+
     }
 }

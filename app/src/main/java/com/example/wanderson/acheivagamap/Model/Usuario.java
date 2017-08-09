@@ -1,4 +1,4 @@
-package com.example.wanderson.acheivagamap.Entidades;
+package com.example.wanderson.acheivagamap.Model;
 
 
 /**
@@ -8,9 +8,7 @@ package com.example.wanderson.acheivagamap.Entidades;
 public class Usuario {
     private String loginUsuario, senhaUsuario;
 
-
     public Usuario(){
-
     }
 
     public String getLoginUsuario() {

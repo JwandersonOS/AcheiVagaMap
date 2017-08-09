@@ -1,4 +1,4 @@
-package com.example.wanderson.acheivagamap.Activitys;
+package com.example.wanderson.acheivagamap.View;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.wanderson.acheivagamap.Entidades.Estacionamento;
+import com.example.wanderson.acheivagamap.Model.Estacionamento;
 import com.example.wanderson.acheivagamap.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

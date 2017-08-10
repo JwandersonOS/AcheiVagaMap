@@ -42,11 +42,12 @@
             android:name=".Fragments.MapsFragment"
             android:label="@string/title_activity_maps"></activity>
         <activity android:name=".View.ActivityAdmin" android:parentActivityName=".Activitys.ActivityPrincipal"/>
-        <activity android:name=".View.Cadastrar_UsuarioActivity"></activity>
-        <activity android:name=".View.ActivityCadastrarEstacionamento"></activity>
-        <activity android:name=".View.Activity_Detalhes_Itens"></activity>
+        <activity android:name=".View.Cadastrar_UsuarioActivity" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".View.ActivityCadastrarEstacionamento" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".View.Activity_Detalhes_Itens" android:parentActivityName=".View.Activity_Lista_Estacionamento"></activity>
         <activity android:name=".View.ActivityFiltro" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
         <activity android:name=".View.Activity_Lista_Estacionamento" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".View.Activity_Recuperar_Senha" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
 
     </application>
 

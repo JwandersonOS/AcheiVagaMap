@@ -13,120 +13,126 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nave_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <LinearLayout
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nave_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp">
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true">
 
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="75dp"
-                android:layout_marginTop="70dp"
-                android:src="@mipmap/logoedt" />
-
-            <TextView
-                android:id="@+id/textViewLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="AcheiVaga"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Acesso exclusivo para Administrador de Estacionamento."
-                android:textAlignment="center"
-                android:textSize="15dp" />
-
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_email"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/edtLogin"
+                android:layout_height="match_parent">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Login (E-mail)"
-                    android:inputType="textEmailAddress" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
 
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_senha"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/edtSenha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Senha"
-                    android:inputType="textPassword" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_height="75dp"
+                        android:layout_marginTop="70dp"
+                        android:src="@mipmap/logoedt" />
 
-            </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:id="@+id/textViewLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="AcheiVaga"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="login"
-                android:text="Entrar no Sistema"
-                android:textAllCaps="false" />
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Acesso exclusivo para Administrador de Estacionamento."
+                        android:textAlignment="center"
+                        android:textSize="15dp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvCadastro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:layout_weight="3"
-                    android:text="Meu estacionamento não é cadastrado."
-                    android:textAlignment="center" />
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="|"
-                    android:textSize="40dp" />
+                        <EditText
+                            android:id="@+id/edtLogin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Login (E-mail)"
+                            android:inputType="textEmailAddress" />
 
-                <TextView
-                    android:id="@+id/tvEsqueci"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Esqueci minha senha."
-                    android:textAlignment="center" />
-            </LinearLayout>
+                    </android.support.design.widget.TextInputLayout>
 
-        </LinearLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_senha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-    </ScrollView>
-    </android.support.design.widget.NavigationView>
+                        <EditText
+                            android:id="@+id/edtSenha"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Senha"
+                            android:inputType="textPassword" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="login"
+                        android:text="Entrar no Sistema"
+                        android:textAllCaps="false" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvCadastro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="100dp"
+                            android:layout_weight="3"
+                            android:text="Meu estacionamento não é cadastrado."
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="|"
+                            android:textSize="40dp" />
+
+                        <TextView
+                            android:onClick="chamaRecuperar"
+                            android:id="@+id/tvEsqueci"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Esqueci minha senha."
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+        </android.support.design.widget.NavigationView>
+
+
+
 
 
 </android.support.v4.widget.DrawerLayout>

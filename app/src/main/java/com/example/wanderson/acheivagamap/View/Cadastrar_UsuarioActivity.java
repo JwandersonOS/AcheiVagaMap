@@ -28,7 +28,7 @@ public class Cadastrar_UsuarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastrar__usuario);
+        setContentView(R.layout.activity_cadastrar_usuario);
 
         edtCadEmail = (EditText) findViewById(R.id.edtCadEmail);
         edtCadSenha = (EditText) findViewById(R.id.edtCadSenha);

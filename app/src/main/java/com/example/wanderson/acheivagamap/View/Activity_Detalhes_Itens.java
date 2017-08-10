@@ -40,7 +40,7 @@ public class Activity_Detalhes_Itens extends AppCompatActivity {
         Bundle args = getIntent().getBundleExtra("args_Lista_Estacionamento");
 
         if (args != null) {
-            Estacionamento estacionamento = (Estacionamento) args.getSerializable("estacionamento");
+            Estacionamento estacionamento = (Estacionamento) args.getSerializable("Estacionamento");
 
             String nomeProprie = estacionamento.getProprietEstacionamento();
             String nomeEstacio = estacionamento.getNomeEstacionamento();

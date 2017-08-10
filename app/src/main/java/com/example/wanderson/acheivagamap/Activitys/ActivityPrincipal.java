@@ -29,7 +29,9 @@ import com.example.wanderson.acheivagamap.Fragments.MapsFragment;
 import com.example.wanderson.acheivagamap.R;
 import com.example.wanderson.acheivagamap.View.ActivityAdmin;
 import com.example.wanderson.acheivagamap.View.ActivityCadastrarEstacionamento;
+import com.example.wanderson.acheivagamap.View.ActivitySobre;
 import com.example.wanderson.acheivagamap.View.Activity_Lista_Estacionamento;
+import com.example.wanderson.acheivagamap.View.Activity_Recuperar_Senha;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -49,6 +51,7 @@ public class ActivityPrincipal extends AppCompatActivity
     private FirebaseAuth mAuth;
     private ProgressDialog dialog;
     private TextView tvCadastro;
+    private TextView tvEsqueci;
 
     private FragmentManager fragmentManager;
 
@@ -80,6 +83,7 @@ public class ActivityPrincipal extends AppCompatActivity
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvCadastro = (TextView) findViewById(R.id.tvCadastro);
+        tvEsqueci = (TextView) findViewById(R.id.tvEsqueci);
 
         mAuth = FirebaseAuth.getInstance();
         usuarios = new Usuario();
@@ -108,6 +112,14 @@ public class ActivityPrincipal extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityPrincipal.this, ActivityCadastrarEstacionamento.class);
+                startActivity(intent);
+            }
+        });
+
+        tvEsqueci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityPrincipal.this, Activity_Recuperar_Senha.class);
                 startActivity(intent);
             }
         });
@@ -169,25 +181,25 @@ public class ActivityPrincipal extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+   // @Override
+   // public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+      //  int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_sobre) {
-            setContentView(R.layout.activity_sobre);
-            return true;
-        }
-        if (id == R.id.action_termos) {
-            setContentView(R.layout.activity_termos_uso);
-            return true;
-        }
+      //  if (id == R.id.action_sobre) {
+         //   setContentView(R.layout.activity_sobre);
+         //   return true;
+      //  }
+       // if (id == R.id.action_termos) {
+       //     setContentView(R.layout.activity_termos_uso);
+       //     return true;
+       // }
 
-        return super.onOptionsItemSelected(item);
-    }
+       // return super.onOptionsItemSelected(item);
+   // }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -214,5 +226,9 @@ public class ActivityPrincipal extends AppCompatActivity
         setContentView(R.layout.activity_filtro);
     }
 
+    //public void chamaRecuperar(View v) {
+      //  Intent intent = new Intent(ActivityPrincipal.this, Activity_Recuperar_Senha.class);
+       // startActivity(intent);
+   // }
 
 }

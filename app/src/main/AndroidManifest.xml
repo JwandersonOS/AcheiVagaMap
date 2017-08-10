@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".View.Activity_Login"
+            android:name=".Activitys.ActivityPrincipal"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -42,7 +42,7 @@
             android:name=".Fragments.MapsFragment"
             android:label="@string/title_activity_maps"></activity>
         <activity android:name=".View.ActivityAdmin" android:parentActivityName=".Activitys.ActivityPrincipal"/>
-        <activity android:name=".View.ActivityCadastrarUsuario"></activity>
+        <activity android:name=".View.Cadastrar_UsuarioActivity"></activity>
         <activity android:name=".View.ActivityCadastrarEstacionamento"></activity>
         <activity android:name=".View.Activity_Detalhes_Itens"></activity>
         <activity android:name=".View.ActivityFiltro" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>

@@ -3,52 +3,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="60dp"
+        android:text="SOBRE"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Termos de uso"
-                android:textSize="40sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TERMO DE USO DA PLATAFORMA DE COMENTÁRIOS
-
-    Este termo de uso de plataforma de comentários
-    (“Termo de Uso”) regulamenta a utilização da plataforma
-    para a postagem de comentários (“Comentários”) em sites
-    que integram o Portal Globo.com, disponibilizados pela
-    GLOBO COMUNICAÇÃO E PARTICIPAÇÕES S.A., empresa com sede
-    na Cidade e Estado do Rio de Janeiro, na Rua Lopes Quintas,
-     nº 303, inscrita no CNPJ/MF sob o nº 27.865.757/0001-02,
-     por sua filial localizada na Avenida das Américas, nº 700,
-      Bloco 2A, salas 101 a 316, na Cidade e Estado do Rio de Janeiro,
-       CEP: 22.640-100, inscrita no CNPJ/MF sob nº 27.865.757/0024-90,
-       doravante denominada simplesmente Globo.com, pela GLOBOSAT PROGRAMADORA
-        LTDA., empresa com sede na Avenida das Américas, nº 1650, Bloco 1 - salas
-        304 a 308, Bloco 2 - salas 103 a 111, 118, 119, 121, 122, 125 e 126 e Bloco
-         05 - Loja 101, salas 201 e 301, Barra da Tijuca, na Cidade e Estado do
-          Rio de Janeiro, inscrita no CNPJ/MF sob o nº 00.811.990/0001-48, doravante
-          denominada simplesmente “Globosat” e pela EDITORA GLOBO S/A,  com sede na
-          Avenida Jaguaré, 1.485, São Paulo/SP, CEP 05342-900, inscrita no CNPJ/MF
-          sob o nº de 04.067.191/0001-60, doravante denominada simplesmente “Editora”,
-          e quando em conjunto denominadas “Empresas”, aos seus usuários da internet,
-          através do endereço eletrônico www.globo.com (Portal Globo.com). No ato de
-          adesão à Plataforma, o usuário (doravante “Usuário” ou “Você”) se obriga a
-           aceitar, plenamente e sem reservas, todos os termos e condições deste Termo de Uso:
-    "
-                android:layout_gravity="center" />
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

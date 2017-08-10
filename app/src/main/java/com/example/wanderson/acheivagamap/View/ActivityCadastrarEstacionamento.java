@@ -1,5 +1,6 @@
 package com.example.wanderson.acheivagamap.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.wanderson.acheivagamap.Activitys.ActivityPrincipal;
 import com.example.wanderson.acheivagamap.Model.Estacionamento;
 import com.example.wanderson.acheivagamap.Presenter.EstacionamentoDao;
 import com.example.wanderson.acheivagamap.R;
@@ -62,7 +64,8 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
                 edtEmail.setText("");
                 estacionamentoDao.salvar(estacionamento);
                 Toast.makeText(ActivityCadastrarEstacionamento.this, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show();
-
+                Intent intent = new Intent(ActivityCadastrarEstacionamento.this, ActivityPrincipal.class);
+                startActivity(intent);
             }
         });
 

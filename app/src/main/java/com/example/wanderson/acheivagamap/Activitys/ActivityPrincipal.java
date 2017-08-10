@@ -20,12 +20,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanderson.acheivagamap.Model.Usuario;
 
 import com.example.wanderson.acheivagamap.Fragments.MapsFragment;
 import com.example.wanderson.acheivagamap.R;
+import com.example.wanderson.acheivagamap.View.ActivityAdmin;
+import com.example.wanderson.acheivagamap.View.ActivityCadastrarEstacionamento;
+import com.example.wanderson.acheivagamap.View.Activity_Lista_Estacionamento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,14 +42,15 @@ import static com.example.wanderson.acheivagamap.R.id.edtLogin;
 
 public class ActivityPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-   // private EditText edtLogin, edtSenha;
-   // private Button btnLogin;
-   // private Usuario usuarios;
-   // private static final String TAG = "EmailPassword";
-   // private FirebaseAuth mAuth;
-   // private ProgressDialog dialog;
+    private EditText edtLogin, edtSenha;
+    private Button btnLogin;
+    private Usuario usuarios;
+    private static final String TAG = "EmailPassword";
+    private FirebaseAuth mAuth;
+    private ProgressDialog dialog;
+    private TextView tvCadastro;
 
-       private FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,33 +76,81 @@ public class ActivityPrincipal extends AppCompatActivity
 
         transaction.commitAllowingStateLoss();
 
-      //  edtLogin = (EditText) findViewById(R.id.edtLogin);
-        //edtSenha = (EditText) findViewById(R.id.edtSenha);
-        //btnLogin = (Button) findViewById(R.id.btnLogin);
-       // btnLogin.setOnClickListener(new View.OnClickListener() {
-          //  @Override
-          //  public void onClick(View v) {
-             //   usuarios.setLoginUsuario(edtLogin.getText().toString());
-            //    usuarios.setSenhaUsuario(edtSenha.getText().toString());
+        edtLogin = (EditText) findViewById(R.id.edtLogin);
+        edtSenha = (EditText) findViewById(R.id.edtSenha);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        tvCadastro = (TextView) findViewById(R.id.tvCadastro);
 
-             //   dialog = ProgressDialog.show(ActivityPrincipal.this, "Autenticando", "Autenticando usuário, por favor aguarde...", true, false);
+        mAuth = FirebaseAuth.getInstance();
+        usuarios = new Usuario();
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usuarios.setLoginUsuario(edtLogin.getText().toString());
+                usuarios.setSenhaUsuario(edtSenha.getText().toString());
+
+                dialog = ProgressDialog.show(ActivityPrincipal.this, "Autenticando", "Autenticando usuário, por favor aguarde...", true, false);
                 //Chama o metodo verificaConexao para checar se o App está conectado a internet
-               // if (verificaConexao()) {
+                if (verificaConexao()) {
                     //Chama o método para autenticar o usuário no banco Firebase
-                   // autenticarUsuario(usuarios.getLoginUsuario().toString(),usuarios.getSenhaUsuario().toString());
-               // } else {
-                 //   Toast.makeText(ActivityPrincipal.this, "Aparentemente você está sem conexão!", Toast.LENGTH_LONG).show();
-                 //   dialog.dismiss();
-              //  }
+                    autenticarUsuario(usuarios.getLoginUsuario().toString(), usuarios.getSenhaUsuario().toString());
+                } else {
+                    Toast.makeText(ActivityPrincipal.this, "Aparentemente você está sem conexão!", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
 
-              //  edtSenha.setText("");
-              //  edtLogin.setText("");
+                edtSenha.setText("");
+                edtLogin.setText("");
 
-           // }
-       // });
+            }
+        });
+        tvCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityPrincipal.this, ActivityCadastrarEstacionamento.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
+    public boolean verificaConexao() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return manager.getActiveNetworkInfo() != null &&
+                manager.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+
+    private void autenticarUsuario(String email, String password) {
+        Log.d(TAG, "signIn:" + email);
+
+        if ((!email.equals("")) && (!password.equals(""))) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "signInWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(ActivityPrincipal.this, "Login efetuado com sucesso.",
+                                        Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                Intent intent = new Intent(ActivityPrincipal.this, ActivityAdmin.class);
+                                startActivity(intent);
+                            } else {
+                                dialog.dismiss();
+                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                Toast.makeText(ActivityPrincipal.this, "Login ou senha inválidos.",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        } else {
+            dialog.dismiss();
+            Toast.makeText(ActivityPrincipal.this, "É obrigatório o preenchimento dos campos E-mail e Senha.",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -124,7 +177,12 @@ public class ActivityPrincipal extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_sobre) {
+            setContentView(R.layout.activity_sobre);
+            return true;
+        }
         if (id == R.id.action_termos) {
+            setContentView(R.layout.activity_termos_uso);
             return true;
         }
 
@@ -147,10 +205,12 @@ public class ActivityPrincipal extends AppCompatActivity
         return true;
     }
 
-    public void chamaLista(View v){
-        setContentView(R.layout.lista_estacionamento);
+    public void chamaLista(View v) {
+        Intent intent = new Intent(ActivityPrincipal.this, Activity_Lista_Estacionamento.class);
+        startActivity(intent);
     }
-    public void chamaFiltro(View v){
+
+    public void chamaFiltro(View v) {
         setContentView(R.layout.activity_filtro);
     }
 

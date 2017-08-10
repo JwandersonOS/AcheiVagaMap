@@ -38,7 +38,7 @@ public class Activity_Lista_Estacionamento extends AppCompatActivity implements 
     private DatabaseReference databaseReference = FirebaseDatabase.
             getInstance().getReference();
     private DatabaseReference estacionamentoReference =
-            databaseReference.child("estacionamento");
+            databaseReference.child("Estacionamento");
     private ProgressDialog dialog;
 
 

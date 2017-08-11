@@ -2,11 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tvRecuperarSenha"
+    <EditText
+        android:id="@+id/recemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recuperar Senha"
-        android:textSize="50dp"/>
+        android:hint="Informe o email">
+
+    </EditText>
+
+    <Button
+        android:id="@+id/btnreccusenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recuperar senha"/>
+
 </LinearLayout>

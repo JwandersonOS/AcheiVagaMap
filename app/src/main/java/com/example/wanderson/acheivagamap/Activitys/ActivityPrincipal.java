@@ -15,7 +15,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +28,7 @@ import com.example.wanderson.acheivagamap.Fragments.MapsFragment;
 import com.example.wanderson.acheivagamap.R;
 import com.example.wanderson.acheivagamap.View.ActivityAdmin;
 import com.example.wanderson.acheivagamap.View.ActivityCadastrarEstacionamento;
-import com.example.wanderson.acheivagamap.View.ActivitySobre;
+import com.example.wanderson.acheivagamap.View.ActivityFiltro;
 import com.example.wanderson.acheivagamap.View.Activity_Lista_Estacionamento;
 import com.example.wanderson.acheivagamap.View.Activity_Recuperar_Senha;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,10 +36,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.concurrent.Executor;
-
-import static com.example.wanderson.acheivagamap.R.id.edtLogin;
 
 public class ActivityPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,14 +57,25 @@ public class ActivityPrincipal extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        DrawerLayout drawerEsquerda = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggleEsquerda = new ActionBarDrawerToggle(
+                this, drawerEsquerda, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerEsquerda.addDrawerListener(toggleEsquerda);
+        toggleEsquerda.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nave_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        NavigationView navigationEsquerda = (NavigationView) findViewById(R.id.nave_esquerda);
+        navigationEsquerda.setNavigationItemSelectedListener(this);
+
+
+        // DrawerLayout drawerDireita = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // ActionBarDrawerToggle toggledireita = new ActionBarDrawerToggle(
+        //         this, drawerDireita, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        // drawerDireita.addDrawerListener(toggledireita);
+        //  toggledireita.syncState();
+
+        // NavigationView navigationDireita = (NavigationView) findViewById(R.id.nave_direita);
+        // navigationDireita.setNavigationItemSelectedListener(this);
+
 
         fragmentManager = getSupportFragmentManager();
 
@@ -126,13 +132,13 @@ public class ActivityPrincipal extends AppCompatActivity
 
     }
 
+
     public boolean verificaConexao() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return manager.getActiveNetworkInfo() != null &&
                 manager.getActiveNetworkInfo().isConnectedOrConnecting();
     }
-
     private void autenticarUsuario(String email, String password) {
         Log.d(TAG, "signIn:" + email);
 
@@ -174,61 +180,64 @@ public class ActivityPrincipal extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_principal, menu);
-        return true;
-    }
+    // @Override
+    //public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    //    getMenuInflater().inflate(R.menu.activity_principal, menu);
+    //   return true;
+    // }
 
-   // @Override
-   // public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-      //  int id = item.getItemId();
+    // @Override
+    // public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    //  int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-      //  if (id == R.id.action_sobre) {
-         //   setContentView(R.layout.activity_sobre);
-         //   return true;
-      //  }
-       // if (id == R.id.action_termos) {
-       //     setContentView(R.layout.activity_termos_uso);
-       //     return true;
-       // }
+    //noinspection SimplifiableIfStatement
+    //  if (id == R.id.action_sobre) {
+    //   setContentView(R.layout.activity_sobre);
+    //   return true;
+    //  }
+    // if (id == R.id.action_termos) {
+    //     setContentView(R.layout.activity_termos_uso);
+    //     return true;
+    // }
 
-       // return super.onOptionsItemSelected(item);
-   // }
+    // return super.onOptionsItemSelected(item);
+    // }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        // int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        // if (id == R.id.nav_camera) {
 
-            // Handle the camera action
-        }
+        // Handle the camera action
+        // }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.RELATIVE_LAYOUT_DIRECTION);
         return true;
     }
 
     public void chamaLista(View v) {
-        Intent intent = new Intent(ActivityPrincipal.this, Activity_Lista_Estacionamento.class);
-        startActivity(intent);
+
+        if (verificaConexao()) {
+            Intent intent = new Intent(ActivityPrincipal.this, Activity_Lista_Estacionamento.class);
+            startActivity(intent);
+
+        } else {
+            Toast.makeText(ActivityPrincipal.this, "Aparentemente você está sem conexão!", Toast.LENGTH_LONG).show();
+
+        }
     }
 
     public void chamaFiltro(View v) {
-        setContentView(R.layout.activity_filtro);
+       Intent intent = new Intent(ActivityPrincipal.this, ActivityFiltro.class);
+        startActivity(intent);
+
     }
-
-    //public void chamaRecuperar(View v) {
-      //  Intent intent = new Intent(ActivityPrincipal.this, Activity_Recuperar_Senha.class);
-       // startActivity(intent);
-   // }
-
 }

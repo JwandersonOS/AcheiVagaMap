@@ -16,7 +16,7 @@
 
 
         <android.support.design.widget.NavigationView
-            android:id="@+id/nave_view"
+            android:id="@+id/nave_esquerda"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -130,7 +130,6 @@
 
             </ScrollView>
         </android.support.design.widget.NavigationView>
-
 
 
 

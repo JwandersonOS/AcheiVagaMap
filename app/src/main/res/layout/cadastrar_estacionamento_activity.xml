@@ -15,6 +15,14 @@
         android:text="CADASTRO"
         android:textSize="20dp"
         android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="11sp"
+        android:text="É obrigaqtório o preenchimento dos campos que contém o (*)."
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,7 +42,7 @@
                     android:id="@+id/edtPropriet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Proprietário"
+                    android:hint="Proprietário*"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -48,7 +56,7 @@
                     android:id="@+id/edtEstac"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Estacionamento"
+                    android:hint="Estacionamento*"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -62,7 +70,7 @@
                     android:id="@+id/edtCNPJ"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:hint="C. N. P. J."
+                    android:hint="C. N. P. J.*"
                     android:inputType="number" />
 
             </android.support.design.widget.TextInputLayout>
@@ -76,7 +84,7 @@
                     android:id="@+id/edtTelefone"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:hint="Telefone"
+                    android:hint="Telefone*"
                     android:inputType="textPhonetic" />
 
             </android.support.design.widget.TextInputLayout>
@@ -92,7 +100,7 @@
                     android:id="@+id/edtEndereco"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Endereço" />
+                    android:hint="Endereço*" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -105,7 +113,7 @@
                     android:id="@+id/edtBairro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Bairro" />
+                    android:hint="Bairro*" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -119,7 +127,7 @@
                     android:id="@+id/edtCidade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Cidade" />
+                    android:hint="Cidade*" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -132,7 +140,7 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="E-mail"
+                    android:hint="E-mail*"
                     android:inputType="textWebEmailAddress" />
 
             </android.support.design.widget.TextInputLayout>

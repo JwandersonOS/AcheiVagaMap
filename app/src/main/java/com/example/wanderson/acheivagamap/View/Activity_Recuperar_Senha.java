@@ -1,5 +1,8 @@
 package com.example.wanderson.acheivagamap.View;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.wanderson.acheivagamap.Activitys.ActivityPrincipal;
 import com.example.wanderson.acheivagamap.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,41 +42,56 @@ public class Activity_Recuperar_Senha extends AppCompatActivity {
         btnreccusenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth
-                        .sendPasswordResetEmail( recemail.getText().toString() )
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if( task.isSuccessful() ){
-                                    recemail.setText("");
-                                    Toast.makeText(
-                                            Activity_Recuperar_Senha.this,
-                                            "RecuperaÃ§Ã£o de acesso iniciada. Email enviado.",
-                                            Toast.LENGTH_SHORT
-                                    ).show();
+                if (verificaConexao()) {
+                    firebaseAuth
+                            .sendPasswordResetEmail(recemail.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful()) {
+
+                                        recemail.setText("");
+                                        Toast.makeText(
+                                                Activity_Recuperar_Senha.this,
+                                                "Recuperação de acesso iniciada. Email enviado.",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+                                        Intent intent = new Intent(Activity_Recuperar_Senha.this, ActivityPrincipal.class);
+                                        startActivity(intent);
+
+                                    } else {
+                                        Toast.makeText(
+                                                Activity_Recuperar_Senha.this,
+                                                "Email inválido",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+                                    }
                                 }
-                                else{
-                                    Toast.makeText(
-                                            Activity_Recuperar_Senha.this,
-                                            "Falhou! Tente novamente",
-                                            Toast.LENGTH_SHORT
-                                    ).show();
-                                }
-                            }
-                        });
+                            });
+
+                } else {
+                    Toast.makeText(Activity_Recuperar_Senha.this, "Aparentemente você está sem conexão!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         init();
     }
 
-    private void init(){
-        recemail=(EditText) findViewById(R.id.recemail);
+    private void init() {
+        recemail = (EditText) findViewById(R.id.recemail);
     }
 
+    public boolean verificaConexao() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        return manager.getActiveNetworkInfo() != null &&
+                manager.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
 }

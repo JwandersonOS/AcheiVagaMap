@@ -1,8 +1,11 @@
 package com.example.wanderson.acheivagamap.Fragments;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.example.wanderson.acheivagamap.Activitys.ActivityPrincipal;
 import com.example.wanderson.acheivagamap.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -10,17 +13,22 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import static com.example.wanderson.acheivagamap.R.id.map;
 
 public class MapsFragment extends SupportMapFragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getMapAsync(this);
+
     }
 
 
@@ -58,14 +66,11 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         LatLng estacEldorado = new LatLng(-7.2055160, -39.3194038);
         mMap.addMarker(new MarkerOptions().position(estacEldorado).title("Estacionamento Eldorado").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_maior)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(estacEldorado));
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
+
     }
 
-    public void streetView(View v){
-        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        CameraUpdate location = CameraUpdateFactory.newLatLngZoom(null , 15);
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
 
-        mMap.moveCamera(location);
-        mMap.animateCamera(zoom, 3000, null);
-    }
 }

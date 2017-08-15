@@ -29,8 +29,10 @@ import com.example.wanderson.acheivagamap.R;
 import com.example.wanderson.acheivagamap.View.ActivityAdmin;
 import com.example.wanderson.acheivagamap.View.ActivityCadastrarEstacionamento;
 import com.example.wanderson.acheivagamap.View.ActivityFiltro;
+import com.example.wanderson.acheivagamap.View.ActivitySobre;
 import com.example.wanderson.acheivagamap.View.Activity_Lista_Estacionamento;
 import com.example.wanderson.acheivagamap.View.Activity_Recuperar_Senha;
+import com.example.wanderson.acheivagamap.View.Activity_TermosUso;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -47,6 +49,8 @@ public class ActivityPrincipal extends AppCompatActivity
     private ProgressDialog dialog;
     private TextView tvCadastro;
     private TextView tvEsqueci;
+    private TextView tvSobre;
+    private TextView tvTermos;
 
     private FragmentManager fragmentManager;
 
@@ -54,8 +58,13 @@ public class ActivityPrincipal extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Toolbar toolbarDireita = (Toolbar) findViewById(R.id.toolbarDireita);
+        // setSupportActionBar(toolbarDireita);
+
 
         DrawerLayout drawerEsquerda = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggleEsquerda = new ActionBarDrawerToggle(
@@ -67,29 +76,23 @@ public class ActivityPrincipal extends AppCompatActivity
         navigationEsquerda.setNavigationItemSelectedListener(this);
 
 
-        // DrawerLayout drawerDireita = (DrawerLayout) findViewById(R.id.drawer_layout);
-        // ActionBarDrawerToggle toggledireita = new ActionBarDrawerToggle(
-        //         this, drawerDireita, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        // drawerDireita.addDrawerListener(toggledireita);
-        //  toggledireita.syncState();
+        /* DrawerLayout drawerDireita = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggledireita = new ActionBarDrawerToggle(
+                this, drawerDireita, toolbarDireita, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+         drawerDireita.addDrawerListener(toggledireita);
+          toggledireita.syncState();
 
-        // NavigationView navigationDireita = (NavigationView) findViewById(R.id.nave_direita);
-        // navigationDireita.setNavigationItemSelectedListener(this);
+         NavigationView navigationDireita = (NavigationView) findViewById(R.id.nave_direita);
+         navigationDireita.setNavigationItemSelectedListener(this);*/
 
-
-        fragmentManager = getSupportFragmentManager();
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
-
-        transaction.commitAllowingStateLoss();
 
         edtLogin = (EditText) findViewById(R.id.edtLogin);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvCadastro = (TextView) findViewById(R.id.tvCadastro);
         tvEsqueci = (TextView) findViewById(R.id.tvEsqueci);
+        tvSobre = (TextView) findViewById(R.id.tvSobre);
+        tvTermos = (TextView) findViewById(R.id.tvTermos);
 
         mAuth = FirebaseAuth.getInstance();
         usuarios = new Usuario();
@@ -130,6 +133,31 @@ public class ActivityPrincipal extends AppCompatActivity
             }
         });
 
+        tvSobre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityPrincipal.this, ActivitySobre.class);
+                startActivity(intent);
+            }
+        });
+
+        tvTermos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityPrincipal.this, Activity_TermosUso.class);
+                startActivity(intent);
+            }
+        });
+
+
+        fragmentManager = getSupportFragmentManager();
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
+
+        transaction.commitAllowingStateLoss();
+
     }
 
 
@@ -139,6 +167,7 @@ public class ActivityPrincipal extends AppCompatActivity
         return manager.getActiveNetworkInfo() != null &&
                 manager.getActiveNetworkInfo().isConnectedOrConnecting();
     }
+
     private void autenticarUsuario(String email, String password) {
         Log.d(TAG, "signIn:" + email);
 
@@ -172,13 +201,14 @@ public class ActivityPrincipal extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+       // DrawerLayout drawerDireita = (DrawerLayout) findViewById(R.id.drawer_layout);
+       // if (drawerDireita.isDrawerOpen(GravityCompat.START)) {
+        //    drawerDireita.closeDrawer(GravityCompat.START);
+        //} else {
+        //    super.onBackPressed();
+       // }
     }
+
 
     // @Override
     //public boolean onCreateOptionsMenu(Menu menu) {
@@ -219,9 +249,10 @@ public class ActivityPrincipal extends AppCompatActivity
         // }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.RELATIVE_LAYOUT_DIRECTION);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
+
+            }
 
     public void chamaLista(View v) {
 
@@ -236,8 +267,10 @@ public class ActivityPrincipal extends AppCompatActivity
     }
 
     public void chamaFiltro(View v) {
-       Intent intent = new Intent(ActivityPrincipal.this, ActivityFiltro.class);
+        Intent intent = new Intent(ActivityPrincipal.this, ActivityFiltro.class);
         startActivity(intent);
 
     }
+
+
 }

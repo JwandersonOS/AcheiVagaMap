@@ -67,10 +67,21 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         mMap.addMarker(new MarkerOptions().position(estacEldorado).title("Estacionamento Eldorado").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_maior)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(estacEldorado));
 
+
+        zoomMapa();
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
 
+
+
+
+    }
+    private void zoomMapa(){
+        LatLng mOrigem;
+        mOrigem = new LatLng(-7.204385, -39.318617);
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(mOrigem).zoom(16).build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
-
 }
+

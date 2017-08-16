@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="right">
 
             <include
             layout="@layout/app_bar_activity_principal"
@@ -216,10 +216,17 @@
            <ImageView
                android:id="@+id/imageViewDireita"
                android:layout_width="match_parent"
-               android:layout_height="110dp"
-               android:src="@mipmap/ic_launcher_logo"
-               android:layout_marginTop="80dp"
+               android:layout_height="60dp"
+               android:src="@mipmap/logoedt"
+               android:layout_marginTop="110dp"
                android:layout_gravity="center"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="AcheiVaga"
+               android:textSize="15sp"
+               android:textAlignment="center"
+               android:textStyle="bold" />
        </LinearLayout>
 </ScrollView>
 

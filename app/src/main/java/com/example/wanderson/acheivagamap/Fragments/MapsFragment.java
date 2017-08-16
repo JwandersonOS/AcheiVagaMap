@@ -71,10 +71,6 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         zoomMapa();
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-
-
-
-
     }
     private void zoomMapa(){
         LatLng mOrigem;

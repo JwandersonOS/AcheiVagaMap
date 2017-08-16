@@ -7,7 +7,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="60dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
         android:text="SOBRE"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="     Somos Hinode. Somos grupo em todos os sentidos da palavra.
+        Pensamos juntos para pensar maior. Reunimos ideias, pessoas e sonhos em um só lugar.
+         Lutamos para fazer a diferença: na vida de cada um de nós e no mundo.
+         Porque cada dia é uma nova oportunidade de vencer. E, para nós, vitória só vale se for no plural.
+Somos uma rede conectada: quando um vence, cada um de nós vence um pouco também. Esse é o fator Hinode:
+gente que batalha, gente que soma esforços e que multiplica resultados, gente que conquista, gente que encanta.
+Quanto mais gente, mais vencedores."/>
 
 </LinearLayout>

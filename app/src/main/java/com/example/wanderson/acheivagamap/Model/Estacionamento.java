@@ -16,6 +16,8 @@ public class Estacionamento implements Serializable {
     private String bairroEstacionamento;
     private String cidEstacionamento;
     private String EmailEstacionamento;
+    private double latitude;
+    private double longitude;
 
 
     public String getProprietEstacionamento() {
@@ -87,4 +89,19 @@ public class Estacionamento implements Serializable {
     }
 
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 }

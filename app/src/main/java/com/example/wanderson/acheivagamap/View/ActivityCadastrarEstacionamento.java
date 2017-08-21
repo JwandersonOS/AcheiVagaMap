@@ -21,6 +21,8 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
     private EditText edtPropriet, edtEstac, edtCNPJ,
             edtTelefone, edtEndereco, edtBairro,
             edtCidade, edtEmail;
+    private double latitude;
+    private double longitude;
 
     EstacionamentoDao estacionamentoDao = new EstacionamentoDao();
     Estacionamento estacionamento = new Estacionamento();
@@ -40,50 +42,44 @@ public class ActivityCadastrarEstacionamento extends AppCompatActivity {
         edtCidade = (EditText) findViewById(R.id.edtCidade);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
 
+
         btnSalvar = (Button) findViewById(R.id.btnSalvar);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (verificaConexao()) {
-                    if ((edtPropriet.equals("")) && (edtEstac.equals("")) && (edtCNPJ.equals(""))
-                            && (edtTelefone.equals(""))&& (edtEndereco.equals(""))&& (edtBairro.equals(""))
-                            && (edtCidade.equals(""))&& (edtEmail.equals(""))) {
-                    estacionamento.setProprietEstacionamento(edtPropriet.getText().toString());
-                    estacionamento.setNomeEstacionamento(edtEstac.getText().toString());
-                    estacionamento.setCnpjEstacionamento(edtCNPJ.getText().toString());
-                    estacionamento.setFoneEstacionamento(edtTelefone.getText().toString());
-                    estacionamento.setEndEstacionamento(edtEndereco.getText().toString());
-                    estacionamento.setBairroEstacionamento(edtBairro.getText().toString());
-                    estacionamento.setCidEstacionamento(edtCidade.getText().toString());
-                    estacionamento.setEmailEstacionamento(edtEmail.getText().toString());
 
 
-                    edtPropriet.setText("");
-                    edtEstac.setText("");
-                    edtCNPJ.setText("");
-                    edtTelefone.setText("");
-                    edtEndereco.setText("");
-                    edtBairro.setText("");
-                    edtCidade.setText("");
-                    edtEmail.setText("");
-                    estacionamentoDao.salvar(estacionamento);
-                    Toast.makeText(ActivityCadastrarEstacionamento.this, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ActivityCadastrarEstacionamento.this, ActivityPrincipal.class);
-                    startActivity(intent);
-                } else {
-                        Toast.makeText(ActivityCadastrarEstacionamento.this, "Preencha os campos Obrigatórios!",
-                                Toast.LENGTH_LONG).show();
+                    if (verificaConexao()) {
+                        estacionamento.setProprietEstacionamento(edtPropriet.getText().toString());
+                        estacionamento.setNomeEstacionamento(edtEstac.getText().toString());
+                        estacionamento.setCnpjEstacionamento(edtCNPJ.getText().toString());
+                        estacionamento.setFoneEstacionamento(edtTelefone.getText().toString());
+                        estacionamento.setEndEstacionamento(edtEndereco.getText().toString());
+                        estacionamento.setBairroEstacionamento(edtBairro.getText().toString());
+                        estacionamento.setCidEstacionamento(edtCidade.getText().toString());
+                        estacionamento.setEmailEstacionamento(edtEmail.getText().toString());
+
+
+                        edtPropriet.setText("");
+                        edtEstac.setText("");
+                        edtCNPJ.setText("");
+                        edtTelefone.setText("");
+                        edtEndereco.setText("");
+                        edtBairro.setText("");
+                        edtCidade.setText("");
+                        edtEmail.setText("");
+                        estacionamentoDao.salvar(estacionamento);
+                        Toast.makeText(ActivityCadastrarEstacionamento.this, "Cadastro realizado com sucesso!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(ActivityCadastrarEstacionamento.this, ActivityPrincipal.class);
+                        startActivity(intent);
+
+                    } else {
+                        Toast.makeText(ActivityCadastrarEstacionamento.this, "Aparentemente você está sem conexão!", Toast.LENGTH_LONG).show();
                     }
-                    }else{
-                    Toast.makeText(ActivityCadastrarEstacionamento.this, "Aparentemente você está sem conexão!", Toast.LENGTH_LONG).show();
 
-                }
-                }
+            }
 
-            });
-
-
-
+        });
 
 
     }

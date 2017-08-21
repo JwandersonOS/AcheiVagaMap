@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_sobre"
+        android:icon="@mipmap/ic_launcher"
         android:orderInCategory="100"
         android:title="@string/action_sobre"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_termos"
+        android:icon="@mipmap/ic_launcher_termos"
         android:orderInCategory="100"
         android:title="@string/action_termos"
         app:showAsAction="never" />
+
+    <item android:id="@+id/addMenu"
+        android:title="Adicionar"
+        android:showAsAction="never"/>
 </menu>

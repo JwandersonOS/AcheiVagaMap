@@ -5,34 +5,31 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.wanderson.acheivagamap.Model.Local;
-import com.example.wanderson.acheivagamap.Model.LocalDialog;
-import com.example.wanderson.acheivagamap.Model.Usuario;
-
-import com.example.wanderson.acheivagamap.R;
 import com.example.wanderson.acheivagamap.View.ActivityAdmin;
 import com.example.wanderson.acheivagamap.View.ActivityCadastrarEstacionamento;
 import com.example.wanderson.acheivagamap.View.ActivityFiltro;
@@ -40,15 +37,17 @@ import com.example.wanderson.acheivagamap.View.ActivitySobre;
 import com.example.wanderson.acheivagamap.View.Activity_Lista_Estacionamento;
 import com.example.wanderson.acheivagamap.View.Activity_Recuperar_Senha;
 import com.example.wanderson.acheivagamap.View.Activity_TermosUso;
+import com.example.wanderson.acheivagamap.View.Detalhe_Marcador;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -60,8 +59,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
+
+import com.example.wanderson.acheivagamap.Model.Local;
+import com.example.wanderson.acheivagamap.Model.LocalDialog;
+import com.example.wanderson.acheivagamap.Model.Usuario;
+import com.example.wanderson.acheivagamap.R;
+
 public class ActivityPrincipal extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, LocalDialog.OnAddMarker {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener,
+        ActivityCompat.OnRequestPermissionsResultCallback, LocalDialog.OnAddMarker, GoogleMap.OnInfoWindowClickListener  {
+
     private EditText edtLogin, edtSenha;
     private Button btnLogin;
     private Usuario usuarios;
@@ -70,11 +78,13 @@ public class ActivityPrincipal extends AppCompatActivity
     private ProgressDialog dialog;
     private TextView tvCadastro;
     private TextView tvEsqueci;
-
+    private Marker marker;
     private LocationManager lm;
     private Location location;
-    private double longitude = -7.204385;
-    private double latitude = -39.318617;
+    private Polyline polyline;
+    private List<LatLng> list;
+    private long distance;
+
 
     private FirebaseDatabase database;
 
@@ -82,29 +92,23 @@ public class ActivityPrincipal extends AppCompatActivity
 
     private GoogleMap map;
 
-
     private static String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
-    private GoogleMap googleMap;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        DrawerLayout drawerEsquerda = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggleEsquerda = new ActionBarDrawerToggle(
-                this, drawerEsquerda, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerEsquerda.addDrawerListener(toggleEsquerda);
-        toggleEsquerda.syncState();
-
-        NavigationView navigationEsquerda = (NavigationView) findViewById(R.id.nave_esquerda);
-        navigationEsquerda.setNavigationItemSelectedListener(this);
-
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nave_esquerda);
+        navigationView.setNavigationItemSelectedListener(this);
 
         edtLogin = (EditText) findViewById(R.id.edtLogin);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
@@ -159,18 +163,7 @@ public class ActivityPrincipal extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
         initMaps();
-
     }
-
-    private void zoomMapa() {
-        LatLng mOrigem;
-        mOrigem = new LatLng(-7.204385, -39.318617);
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(mOrigem).zoom(16).build();
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-    }
-
-
     public boolean verificaConexao() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -180,7 +173,6 @@ public class ActivityPrincipal extends AppCompatActivity
 
     private void autenticarUsuario(String email, String password) {
         Log.d(TAG, "signIn:" + email);
-
         if ((!email.equals("")) && (!password.equals(""))) {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -211,18 +203,17 @@ public class ActivityPrincipal extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawerDireita = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawerDireita.isDrawerOpen(GravityCompat.START)) {
-            drawerDireita.closeDrawer(GravityCompat.START);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_principal, menu);
         return true;
     }
@@ -232,9 +223,7 @@ public class ActivityPrincipal extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
         int id = item.getItemId();
-
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sobre) {
@@ -249,28 +238,19 @@ public class ActivityPrincipal extends AppCompatActivity
             addPin();
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         // Handle navigation view item clicks here.
-        // int id = item.getItemId();
 
-        // if (id == R.id.nav_camera) {
-
-        // Handle the camera action
-        // }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
     }
-
     public void chamaLista(View v) {
 
         if (verificaConexao()) {
@@ -289,7 +269,16 @@ public class ActivityPrincipal extends AppCompatActivity
 
     }
 
-   public void initMaps() {
+    //CONFIGURAÇÕES DO MAPA//
+
+    private void zoomMapa() {
+        LatLng mOrigem;
+        mOrigem = new LatLng(-7.204385, -39.318617);
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(mOrigem).zoom(16).build();
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+    }
+    public void initMaps() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -308,9 +297,13 @@ public class ActivityPrincipal extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap map) {
+
+
         this.map = map;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.getUiSettings().setZoomControlsEnabled(true);
+
+
         if (lm != null) {
             if (location != null) {
             }
@@ -322,12 +315,89 @@ public class ActivityPrincipal extends AppCompatActivity
             map.setMyLocationEnabled(true);
         }
 
-
-       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-7.204385, -39.318617), 15));
         zoomMapa();
 
         loadMarker();
+
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter(){
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                TextView tv = new TextView(ActivityPrincipal.this);
+                tv.setText(Html.fromHtml("<b><font color=\"#ff0000\">"+marker.getTitle()+":</font></b> "));
+
+                return tv;
+            }
+
+            @Override
+            public View getInfoWindow(Marker marker) {
+                LinearLayout ll = new LinearLayout(ActivityPrincipal.this);
+                ll.setPadding(20, 20, 20, 20);
+                ll.setBackgroundColor(Color.GREEN);
+
+                TextView tv = new TextView(ActivityPrincipal.this);
+                tv.setText(Html.fromHtml("<b><font color=\"#ffffff\">"+marker.getTitle()+":</font></b> "));
+                ll.addView(tv);
+
+                Button bt = new Button(ActivityPrincipal.this);
+                bt.setText("Botão");
+                bt.setBackgroundColor(Color.RED);
+                bt.setOnClickListener(new Button.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("Script", "Botão clicado");
+                    }
+
+                });
+
+                // ll.addView(bt);
+
+                return ll;
+            }
+
+        });
+
+        map.setOnInfoWindowClickListener(this);
     }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        TextView viewNome;
+        TextView viewLatitude;
+        TextView viewLongitude;
+        TextView viewQtdVaga;
+
+        viewNome = (TextView) findViewById(R.id.textNomeEstacio);
+        viewLatitude = (TextView) findViewById(R.id.textLatitude);
+        viewLongitude = (TextView) findViewById(R.id.textLongitude);
+        viewQtdVaga = (TextView) findViewById(R.id.textQtdVagas);
+
+        //Intent i = new Intent(ActivityPrincipal.this, Detalhe_Marcador.class);
+        //startActivity(i);
+        Bundle args = getIntent().getBundleExtra("args_Lista_Marcadores");
+
+        if (args != null) {
+            Local local = (Local) args.getSerializable("Local");
+
+            String nomeEstacio = local.getNome();
+            double latitude = local.getLatitude();
+            double longitude = local.getLongitude();
+            int qtdVaga = local.getQtdVagas();
+
+
+            viewNome.setText(nomeEstacio);
+            viewLatitude.setText((int) latitude);
+            viewLongitude.setText((int) longitude);
+            viewQtdVaga.setText(qtdVaga);
+
+            Toast.makeText(ActivityPrincipal.this, (CharSequence) viewQtdVaga, Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
+
 
     public void addPin() {
         LocalDialog localDialog = LocalDialog.getInstance(this);
@@ -396,11 +466,12 @@ public class ActivityPrincipal extends AppCompatActivity
                 map.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshots) {
                     Local local = dataSnapshot1.getValue(Local.class);
-                    map.addMarker(new MarkerOptions().position(new LatLng(local.getLatitude(),
-                            local.getLongitude())).title(local.getNome())
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_sem_nome)));
-
-
+                    MarkerOptions options = new MarkerOptions();
+                    options.position(new LatLng(local.getLatitude(),
+                            local.getLongitude())).title(local.getNome()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_sem_nome));
+                    // map.addMarker(new MarkerOptions().position(new LatLng(local.getLatitude(),
+                    //    local.getLongitude())).title(local.getNome()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_sem_nome)));
+                    marker = map.addMarker(options);
                 }
             }
 
@@ -410,9 +481,10 @@ public class ActivityPrincipal extends AppCompatActivity
         });
     }
 
+
     @Override
     public void onAddMarker() {
-        loadMarker();
+
     }
 
 }

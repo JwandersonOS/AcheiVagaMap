@@ -14,6 +14,7 @@ public class Local {
     private String nome;
     private double latitude;
     private double longitude;
+    private int qtdVagas;
 
     public String getNome() {
         return nome;
@@ -47,5 +48,13 @@ public class Local {
         result.put("longitude", longitude);
 
         return result;
+    }
+
+    public int getQtdVagas() {
+        return qtdVagas;
+    }
+
+    public void setQtdVagas(int qtdVagas) {
+        this.qtdVagas = qtdVagas;
     }
 }

@@ -59,6 +59,7 @@
         <activity android:name=".View.Activity_Recuperar_Senha" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
         <activity android:name=".View.ActivitySobre" android:parentActivityName=".Activitys.ActivityPrincipal"/>
         <activity android:name=".View.Activity_TermosUso" android:parentActivityName=".Activitys.ActivityPrincipal"/>
+        <activity android:name=".View.Detalhe_Marcador" android:parentActivityName=".Activitys.ActivityPrincipal"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

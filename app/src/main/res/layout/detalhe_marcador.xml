@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Nome do Estacionamento:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textNomeEstacio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Latitide:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Longitude:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Quantidade de Vagas:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textQtdVagas"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+</LinearLayout>

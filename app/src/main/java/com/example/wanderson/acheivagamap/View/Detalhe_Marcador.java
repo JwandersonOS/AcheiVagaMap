@@ -16,36 +16,40 @@ import com.example.wanderson.acheivagamap.R;
  */
 
 public class Detalhe_Marcador extends AppCompatActivity {
-    TextView viewNome;
+    TextView viewNomeEstacionamento;
+    TextView viewNomeProprietario;
     TextView viewLatitude;
     TextView viewLongitude;
-    TextView viewQtdVaga;
+    TextView viewQtdVagas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detalhe_marcador);
 
-        viewNome = (TextView) findViewById(R.id.textNomeEstacio);
+        viewNomeEstacionamento = (TextView) findViewById(R.id.textNomeEstacionamento);
+        viewNomeProprietario = (TextView) findViewById(R.id.textNomeProprietario);
         viewLatitude = (TextView) findViewById(R.id.textLatitude);
         viewLongitude = (TextView) findViewById(R.id.textLongitude);
-        viewQtdVaga = (TextView) findViewById(R.id.textQtdVagas);
+        viewQtdVagas = (TextView) findViewById(R.id.textQtdVagas);
 
         Bundle args = getIntent().getBundleExtra("args_Lista_Marcadores");
 
         if (args != null) {
             Local local = (Local) args.getSerializable("Local");
 
-            String nomeEstacio = local.getNome();
+            String nomeEstacionamento = local.getNomeEstacionamento();
+            String nomeProprietario = local.getNomeProprietario();
             double latitude = local.getLatitude();
             double longitude = local.getLongitude();
-            int qtdVaga = local.getQtdVagas();
+            int qtdVagas = local.getQtdVagas();
 
 
-            viewNome.setText(nomeEstacio);
+            viewNomeEstacionamento.setText(nomeEstacionamento);
+            viewNomeProprietario.setText(nomeProprietario);
             viewLatitude.setText((int) latitude);
             viewLongitude.setText((int) longitude);
-            viewQtdVaga.setText(qtdVaga);
+            viewQtdVagas.setText(qtdVagas);
         }
     }
 

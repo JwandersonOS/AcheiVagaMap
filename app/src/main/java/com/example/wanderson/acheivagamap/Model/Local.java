@@ -2,6 +2,7 @@ package com.example.wanderson.acheivagamap.Model;
 
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,22 +10,15 @@ import java.util.Map;
  * Created by bruno on 9/23/16.
  */
 
-public class Local {
+public class Local implements Serializable {
 
-    private String nome;
+    private String nomeEstacionamento;
+    private String nomeProprietario;
     private double latitude;
     private double longitude;
     private int qtdVagas;
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public double getLatitude() {
+        public double getLatitude() {
         return latitude;
     }
 
@@ -40,16 +34,6 @@ public class Local {
         this.longitude = longitude;
     }
 
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("nome", nome);
-        result.put("latitude", latitude);
-        result.put("longitude", longitude);
-
-        return result;
-    }
-
     public int getQtdVagas() {
         return qtdVagas;
     }
@@ -57,4 +41,34 @@ public class Local {
     public void setQtdVagas(int qtdVagas) {
         this.qtdVagas = qtdVagas;
     }
+
+    public String getNomeEstacionamento() {
+        return nomeEstacionamento;
+    }
+
+    public void setNomeEstacionamento(String nomeEstacionamento) {
+        this.nomeEstacionamento = nomeEstacionamento;
+    }
+
+    public String getNomeProprietario() {
+        return nomeProprietario;
+    }
+
+    public void setNomeProprietario(String nomeProprietario) {
+        this.nomeProprietario = nomeProprietario;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("nomeEstacionamento", nomeEstacionamento);
+        result.put("nomeProprietario", nomeProprietario);
+        result.put("latitude", latitude);
+        result.put("longitude", longitude);
+        result.put("qtdVagas", qtdVagas);
+
+        return result;
+    }
+
+
 }

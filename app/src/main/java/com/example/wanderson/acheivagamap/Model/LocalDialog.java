@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ import static com.example.wanderson.acheivagamap.R.id.map;
  * Created by bruno on 9/23/16.
  */
 
-public class LocalDialog extends DialogFragment
+public class LocalDialog extends DialogFragment implements Serializable
 {
     private static final String TAG = LocalDialog.class.getCanonicalName();
     private Activity activity = null;
@@ -56,9 +57,11 @@ public class LocalDialog extends DialogFragment
 
         LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.dialog_local, null);
-        final EditText edtNome = (EditText) view.findViewById(R.id.edtNome);
+        final EditText edtNomeEstacionamento = (EditText) view.findViewById(R.id.edtNomeEstacionamento);
+        final EditText edtNomeProprietario = (EditText) view.findViewById(R.id.edtNomePropietario);
         final EditText edtLatitude = (EditText) view.findViewById(R.id.edtLatitude);
         final EditText edtLongitude = (EditText) view.findViewById(R.id.edtLongitude);
+        final EditText edtQtdVagas = (EditText) view.findViewById(R.id.edtQtdVagas);
 
         builder.setView(view);
 
@@ -68,9 +71,11 @@ public class LocalDialog extends DialogFragment
                 DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("locais");
 
                 Local local = new Local();
-                local.setNome(edtNome.getText().toString());
+                local.setNomeEstacionamento(edtNomeEstacionamento.getText().toString());
+                local.setNomeProprietario(edtNomeProprietario.getText().toString());
                 local.setLatitude(Double.parseDouble(edtLatitude.getText().toString()));
                 local.setLongitude(Double.parseDouble(edtLongitude.getText().toString()));
+                local.setQtdVagas(Integer.parseInt(edtQtdVagas.getText().toString()));
 
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put(myRef.push().getKey(), local.toMap());

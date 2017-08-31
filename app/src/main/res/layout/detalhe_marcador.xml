@@ -11,7 +11,18 @@
         android:text="Nome do Estacionamento:"
         android:textStyle="bold" />
     <TextView
-        android:id="@+id/textNomeEstacio"
+        android:id="@+id/textNomeEstacionamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Null" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Nome do Proprietário:"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textNomeProprietario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Null" />

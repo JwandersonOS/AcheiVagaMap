@@ -11,6 +11,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -24,12 +26,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Interpolator;
+import android.view.animation.OvershootInterpolator;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wanderson.acheivagamap.Detalhes_Marcador;
+import com.example.wanderson.acheivagamap.Model.Estacionamento;
 import com.example.wanderson.acheivagamap.View.ActivityAdmin;
 import com.example.wanderson.acheivagamap.View.ActivityCadastrarEstacionamento;
 import com.example.wanderson.acheivagamap.View.ActivityFiltro;
@@ -45,6 +53,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -59,6 +68,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.wanderson.acheivagamap.Model.Local;
@@ -68,7 +78,7 @@ import com.example.wanderson.acheivagamap.R;
 
 public class ActivityPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener,
-        ActivityCompat.OnRequestPermissionsResultCallback, LocalDialog.OnAddMarker, GoogleMap.OnInfoWindowClickListener  {
+        ActivityCompat.OnRequestPermissionsResultCallback, LocalDialog.OnAddMarker, GoogleMap.OnInfoWindowClickListener {
 
     private EditText edtLogin, edtSenha;
     private Button btnLogin;
@@ -85,6 +95,14 @@ public class ActivityPrincipal extends AppCompatActivity
     private List<LatLng> list;
     private long distance;
 
+    int currentLeft = 150;
+
+    int currentTop = 0;
+
+    int currentRight = 0;
+
+    int currentBottom = 0;
+
 
     private FirebaseDatabase database;
 
@@ -94,7 +112,8 @@ public class ActivityPrincipal extends AppCompatActivity
 
     private static String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
 
-    @Override
+
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
@@ -164,6 +183,7 @@ public class ActivityPrincipal extends AppCompatActivity
 
         initMaps();
     }
+
     public boolean verificaConexao() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -251,6 +271,7 @@ public class ActivityPrincipal extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public void chamaLista(View v) {
 
         if (verificaConexao()) {
@@ -278,6 +299,7 @@ public class ActivityPrincipal extends AppCompatActivity
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     }
+
     public void initMaps() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -298,11 +320,32 @@ public class ActivityPrincipal extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap map) {
 
-
+        MapStyleOptions style;
         this.map = map;
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        map.getUiSettings().setZoomControlsEnabled(true);
+                style = new MapStyleOptions("[" +
+                "  {" +
+                "    \"featureType\":\"poi.business\"," +
+                "    \"elementType\":\"all\"," +
+                "    \"stylers\":[" +
+                "      {" +
+                "        \"visibility\":\"off\"" +
+                "      }" +
+                "    ]" +
+                "  }," +
+                "  {" +
+                "    \"featureType\":\"transit\"," +
+                "    \"elementType\":\"all\"," +
+                "    \"stylers\":[" +
+                "      {" +
+                "        \"visibility\":\"off\"" +
+                "      }" +
+                "    ]" +
+                "  }" +
+                "]");
 
+        map.setMapStyle(style);
+       // map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        map.getUiSettings().setZoomControlsEnabled(true);
 
         if (lm != null) {
             if (location != null) {
@@ -318,13 +361,15 @@ public class ActivityPrincipal extends AppCompatActivity
         zoomMapa();
 
         loadMarker();
+        animatePadding(1,80,0,4);
 
-        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter(){
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             @Override
             public View getInfoContents(Marker marker) {
                 TextView tv = new TextView(ActivityPrincipal.this);
-                tv.setText(Html.fromHtml("<b><font color=\"#ff0000\">"+marker.getTitle()+":</font></b> "));
+                tv.setText(Html.fromHtml("<b><font color=\"#ff0000\">" + marker.getTitle() + ":</font></b> "));
+
 
                 return tv;
             }
@@ -336,13 +381,13 @@ public class ActivityPrincipal extends AppCompatActivity
                 ll.setBackgroundColor(Color.GREEN);
 
                 TextView tv = new TextView(ActivityPrincipal.this);
-                tv.setText(Html.fromHtml("<b><font color=\"#ffffff\">"+marker.getTitle()+":</font></b> "));
+                tv.setText(Html.fromHtml("<b><font color=\"#ffffff\">" + marker.getTitle() + ":</font></b> "));
                 ll.addView(tv);
 
                 Button bt = new Button(ActivityPrincipal.this);
                 bt.setText("Botão");
                 bt.setBackgroundColor(Color.RED);
-                bt.setOnClickListener(new Button.OnClickListener(){
+                bt.setOnClickListener(new Button.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -357,46 +402,58 @@ public class ActivityPrincipal extends AppCompatActivity
             }
 
         });
-
         map.setOnInfoWindowClickListener(this);
+
+    }
+        public void animatePadding(
+
+            final int toLeft, final int toTop, final int toRight, final int toBottom) {
+
+        final Handler handler = new Handler();
+        final long start = SystemClock.uptimeMillis();
+        final long duration = 1000;
+
+        final Interpolator interpolator = new OvershootInterpolator();
+
+        final int startLeft = currentLeft;
+        final int startTop = currentTop;
+        final int startRight = currentRight;
+        final int startBottom = currentBottom;
+
+        currentLeft = toLeft;
+        currentTop = toTop;
+        currentRight = toRight;
+        currentBottom = toBottom;
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                long elapsed = SystemClock.uptimeMillis() - start;
+                float t = interpolator.getInterpolation((float) elapsed / duration);
+
+                int left = (int) (startLeft + ((toLeft - startLeft) * t));
+                int top = (int) (startTop + ((toTop - startTop) * t));
+                int right = (int) (startRight + ((toRight - startRight) * t));
+                int bottom = (int) (startBottom + ((toBottom - startBottom) * t));
+
+                map.setPadding(left, top, right, bottom);
+
+                if (elapsed < duration) {
+                    // Post again 16ms later.
+                    handler.postDelayed(this, 16);
+                }
+            }
+        });
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        TextView viewNome;
-        TextView viewLatitude;
-        TextView viewLongitude;
-        TextView viewQtdVaga;
-
-        viewNome = (TextView) findViewById(R.id.textNomeEstacio);
-        viewLatitude = (TextView) findViewById(R.id.textLatitude);
-        viewLongitude = (TextView) findViewById(R.id.textLongitude);
-        viewQtdVaga = (TextView) findViewById(R.id.textQtdVagas);
-
-        //Intent i = new Intent(ActivityPrincipal.this, Detalhe_Marcador.class);
-        //startActivity(i);
-        Bundle args = getIntent().getBundleExtra("args_Lista_Marcadores");
-
-        if (args != null) {
-            Local local = (Local) args.getSerializable("Local");
-
-            String nomeEstacio = local.getNome();
-            double latitude = local.getLatitude();
-            double longitude = local.getLongitude();
-            int qtdVaga = local.getQtdVagas();
+        Intent i = new Intent(ActivityPrincipal.this, Detalhes_Marcador.class);
+        startActivity(i);
+        //Toast.makeText(ActivityPrincipal.this, "Jaqnela de Informação.", Toast.LENGTH_LONG).show();
 
 
-            viewNome.setText(nomeEstacio);
-            viewLatitude.setText((int) latitude);
-            viewLongitude.setText((int) longitude);
-            viewQtdVaga.setText(qtdVaga);
-
-            Toast.makeText(ActivityPrincipal.this, (CharSequence) viewQtdVaga, Toast.LENGTH_LONG).show();
-        }
     }
-
-
-
 
 
     public void addPin() {
@@ -468,7 +525,7 @@ public class ActivityPrincipal extends AppCompatActivity
                     Local local = dataSnapshot1.getValue(Local.class);
                     MarkerOptions options = new MarkerOptions();
                     options.position(new LatLng(local.getLatitude(),
-                            local.getLongitude())).title(local.getNome()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_sem_nome));
+                            local.getLongitude())).title(local.getNomeEstacionamento()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_sem_nome));
                     // map.addMarker(new MarkerOptions().position(new LatLng(local.getLatitude(),
                     //    local.getLongitude())).title(local.getNome()).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_sem_nome)));
                     marker = map.addMarker(options);
@@ -487,4 +544,6 @@ public class ActivityPrincipal extends AppCompatActivity
 
     }
 
+
 }
+

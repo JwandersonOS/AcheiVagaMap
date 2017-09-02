@@ -1,7 +1,6 @@
-package com.example.wanderson.acheivagamap.Activitys;
+package com.example.wanderson.acheivagamap.View;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,18 +8,14 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -29,20 +24,14 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wanderson.acheivagamap.Detalhes_Marcador;
-import com.example.wanderson.acheivagamap.View.ActivityMantenedor;
-
-import com.example.wanderson.acheivagamap.View.ActivityFiltro;
-import com.example.wanderson.acheivagamap.View.ActivitySobre;
-import com.example.wanderson.acheivagamap.View.Activity_Lista_Estacionamento;
-import com.example.wanderson.acheivagamap.View.Activity_Recuperar_Senha;
-import com.example.wanderson.acheivagamap.View.Activity_TermosUso;
-import com.example.wanderson.acheivagamap.View.Indicar_Estacionamento;
+import com.example.wanderson.acheivagamap.Model.Local;
+import com.example.wanderson.acheivagamap.Model.LocalDialog;
+import com.example.wanderson.acheivagamap.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -54,11 +43,6 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,23 +51,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import com.example.wanderson.acheivagamap.Model.Local;
-import com.example.wanderson.acheivagamap.Model.LocalDialog;
-import com.example.wanderson.acheivagamap.Model.Usuario;
-import com.example.wanderson.acheivagamap.R;
+/**
+ * Created by Wanderson on 29/07/2017.
+ */
 
-public class ActivityPrincipal extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener,
+public class ActivityMantenedor extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, LocationListener,
         ActivityCompat.OnRequestPermissionsResultCallback, LocalDialog.OnAddMarker, GoogleMap.OnInfoWindowClickListener {
-
-    private EditText edtLogin, edtSenha;
-    private Button btnLogin;
-    private Usuario usuarios;
-    private static final String TAG = "EmailPassword";
-    private FirebaseAuth mAuth;
-    private ProgressDialog dialog;
-    private TextView tvCadastro;
-    private TextView tvEsqueci;
     private Marker marker;
     private LocationManager lm;
     private Location location;
@@ -109,128 +82,33 @@ public class ActivityPrincipal extends AppCompatActivity
     private static String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
 
 
-     @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nave_esquerda);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        edtLogin = (EditText) findViewById(R.id.edtLogin);
-        edtSenha = (EditText) findViewById(R.id.edtSenha);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        tvCadastro = (TextView) findViewById(R.id.tvCadastro);
-        tvEsqueci = (TextView) findViewById(R.id.tvEsqueci);
-
-        mAuth = FirebaseAuth.getInstance();
-        usuarios = new Usuario();
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                usuarios.setLoginUsuario(edtLogin.getText().toString());
-                usuarios.setSenhaUsuario(edtSenha.getText().toString());
-
-                dialog = ProgressDialog.show(ActivityPrincipal.this, "Autenticando", "Autenticando usuário, por favor aguarde...", true, false);
-                //Chama o metodo verificaConexao para checar se o App está conectado a internet
-                if (verificaConexao()) {
-                    //Chama o método para autenticar o usuário no banco Firebase
-                    autenticarUsuario(usuarios.getLoginUsuario().toString(), usuarios.getSenhaUsuario().toString());
-                } else {
-                    Toast.makeText(ActivityPrincipal.this, "Aparentemente você está sem conexão!", Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
-                }
-
-                edtSenha.setText("");
-                edtLogin.setText("");
-
-            }
-        });
-        tvCadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityPrincipal.this, Indicar_Estacionamento.class);
-                startActivity(intent);
-            }
-        });
-
-        tvEsqueci.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityPrincipal.this, Activity_Recuperar_Senha.class);
-                startActivity(intent);
-            }
-        });
-
-
-        database = FirebaseDatabase.getInstance();
+        setContentView(R.layout.activity_mantenedor);
 
         SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapMantenedor);
         mapFragment.getMapAsync(this);
 
         initMaps();
+        database = FirebaseDatabase.getInstance();
+
+
     }
+    public void chamaCadastroUsuario(View v) {
+        Intent intent = new Intent(ActivityMantenedor.this, Cadastrar_UsuarioActivity.class);
+        startActivity(intent);
 
-    public boolean verificaConexao() {
-        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        return manager.getActiveNetworkInfo() != null &&
-                manager.getActiveNetworkInfo().isConnectedOrConnecting();
     }
+    public void chamaCadastroEstacionamento(View v) {
+        addPin();
 
-    private void autenticarUsuario(String email, String password) {
-        Log.d(TAG, "signIn:" + email);
-        if ((!email.equals("")) && (!password.equals(""))) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(ActivityPrincipal.this, "Login efetuado com sucesso.",
-                                        Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                                Intent intent = new Intent(ActivityPrincipal.this, ActivityMantenedor.class);
-                                startActivity(intent);
-                            } else {
-                                dialog.dismiss();
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(ActivityPrincipal.this, "Login ou senha inválidos.",
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-        } else {
-            dialog.dismiss();
-            Toast.makeText(ActivityPrincipal.this, "É obrigatório o preenchimento dos campos E-mail e Senha.",
-                    Toast.LENGTH_LONG).show();
-        }
     }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_principal, menu);
+        getMenuInflater().inflate(R.menu.activity_mantenedor, menu);
         return true;
     }
 
@@ -243,16 +121,13 @@ public class ActivityPrincipal extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sobre) {
-            Intent intent = new Intent(ActivityPrincipal.this, ActivitySobre.class);
+            Intent intent = new Intent(ActivityMantenedor.this, ActivitySobre.class);
             startActivity(intent);
         }
         if (id == R.id.action_termos) {
-            Intent intent = new Intent(ActivityPrincipal.this, Activity_TermosUso.class);
+            Intent intent = new Intent(ActivityMantenedor.this, Activity_TermosUso.class);
             startActivity(intent);
         }
-       // if (id == R.id.addMenu) {
-        //    addPin();
-        //}
 
         return super.onOptionsItemSelected(item);
     }
@@ -262,29 +137,9 @@ public class ActivityPrincipal extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+               return true;
     }
 
-    public void chamaLista(View v) {
-
-        if (verificaConexao()) {
-            Intent intent = new Intent(ActivityPrincipal.this, Activity_Lista_Estacionamento.class);
-            startActivity(intent);
-
-        } else {
-            Toast.makeText(ActivityPrincipal.this, "Aparentemente você está sem conexão!", Toast.LENGTH_LONG).show();
-
-        }
-    }
-
-    public void chamaFiltro(View v) {
-        Intent intent = new Intent(ActivityPrincipal.this, ActivityFiltro.class);
-        startActivity(intent);
-
-    }
 
     //CONFIGURAÇÕES DO MAPA//
 
@@ -318,7 +173,7 @@ public class ActivityPrincipal extends AppCompatActivity
 
         MapStyleOptions style;
         this.map = map;
-                style = new MapStyleOptions("[" +
+        style = new MapStyleOptions("[" +
                 "  {" +
                 "    \"featureType\":\"poi.business\"," +
                 "    \"elementType\":\"all\"," +
@@ -340,7 +195,7 @@ public class ActivityPrincipal extends AppCompatActivity
                 "]");
 
         map.setMapStyle(style);
-       // map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        // map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.getUiSettings().setZoomControlsEnabled(true);
 
         if (lm != null) {
@@ -363,7 +218,7 @@ public class ActivityPrincipal extends AppCompatActivity
 
             @Override
             public View getInfoContents(Marker marker) {
-                TextView tv = new TextView(ActivityPrincipal.this);
+                TextView tv = new TextView(ActivityMantenedor.this);
                 tv.setText(Html.fromHtml("<b><font color=\"#ff0000\">" + marker.getTitle() + ":</font></b> "));
 
 
@@ -372,15 +227,15 @@ public class ActivityPrincipal extends AppCompatActivity
 
             @Override
             public View getInfoWindow(Marker marker) {
-                LinearLayout ll = new LinearLayout(ActivityPrincipal.this);
+                LinearLayout ll = new LinearLayout(ActivityMantenedor.this);
                 ll.setPadding(20, 20, 20, 20);
                 ll.setBackgroundColor(Color.GREEN);
 
-                TextView tv = new TextView(ActivityPrincipal.this);
+                TextView tv = new TextView(ActivityMantenedor.this);
                 tv.setText(Html.fromHtml("<b><font color=\"#ffffff\">" + marker.getTitle() + ":</font></b> "));
                 ll.addView(tv);
 
-                Button bt = new Button(ActivityPrincipal.this);
+                Button bt = new Button(ActivityMantenedor.this);
                 bt.setText("Botão");
                 bt.setBackgroundColor(Color.RED);
                 bt.setOnClickListener(new Button.OnClickListener() {
@@ -401,7 +256,7 @@ public class ActivityPrincipal extends AppCompatActivity
         map.setOnInfoWindowClickListener(this);
 
     }
-        public void animatePadding(
+    public void animatePadding(
 
             final int toLeft, final int toTop, final int toRight, final int toBottom) {
 
@@ -444,7 +299,7 @@ public class ActivityPrincipal extends AppCompatActivity
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Intent i = new Intent(ActivityPrincipal.this, Detalhes_Marcador.class);
+        Intent i = new Intent(ActivityMantenedor.this, Detalhes_Marcador.class);
         startActivity(i);
         //Toast.makeText(ActivityPrincipal.this, "Jaqnela de Informação.", Toast.LENGTH_LONG).show();
 
@@ -540,6 +395,4 @@ public class ActivityPrincipal extends AppCompatActivity
 
     }
 
-
 }
-

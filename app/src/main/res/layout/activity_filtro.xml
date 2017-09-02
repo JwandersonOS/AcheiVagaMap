@@ -7,13 +7,5 @@
     tools:context="com.example.wanderson.acheivagamap.Activitys.ActivityPrincipal">
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Filtro"
-            android:textSize="55sp"
-            android:layout_gravity="center"/>
-
-
 
 </LinearLayout>

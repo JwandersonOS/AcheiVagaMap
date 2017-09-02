@@ -58,24 +58,37 @@ public class LocalDialog extends DialogFragment implements Serializable
         LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.dialog_local, null);
         final EditText edtNomeEstacionamento = (EditText) view.findViewById(R.id.edtNomeEstacionamento);
-        final EditText edtNomeProprietario = (EditText) view.findViewById(R.id.edtNomePropietario);
+        final EditText edtProprietEstacionamento = (EditText) view.findViewById(R.id.edtPropietEstacionamento);
         final EditText edtLatitude = (EditText) view.findViewById(R.id.edtLatitude);
         final EditText edtLongitude = (EditText) view.findViewById(R.id.edtLongitude);
         final EditText edtQtdVagas = (EditText) view.findViewById(R.id.edtQtdVagas);
+        final EditText edtFoneEstacionamento = (EditText) view.findViewById(R.id.edtFoneEstacionamento);
+        final EditText edtEndEstacionamento = (EditText) view.findViewById(R.id.edtEndEstacionamento);
+        final EditText edtBairroEstacionamento = (EditText) view.findViewById(R.id.edtBairroEstacionamento);
+        final EditText edtCidEstacionamento = (EditText) view.findViewById(R.id.edtCidEstacionamento);
+        final EditText edtEmailEstacionamento = (EditText) view.findViewById(R.id.edtEmailEstacionamento);
+        final EditText edtCnpjEstacionamento = (EditText) view.findViewById(R.id.edtCnpjEstacionamento);
+
 
         builder.setView(view);
 
         builder.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("locais");
+                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("estacionamentos");
 
                 Local local = new Local();
                 local.setNomeEstacionamento(edtNomeEstacionamento.getText().toString());
-                local.setNomeProprietario(edtNomeProprietario.getText().toString());
+                local.setProprietEstacionamento(edtProprietEstacionamento.getText().toString());
                 local.setLatitude(Double.parseDouble(edtLatitude.getText().toString()));
                 local.setLongitude(Double.parseDouble(edtLongitude.getText().toString()));
                 local.setQtdVagas(Integer.parseInt(edtQtdVagas.getText().toString()));
+                local.setFoneEstacionamento (edtFoneEstacionamento.getText().toString());
+                local.setEndEstacionamento (edtEndEstacionamento.getText().toString());
+                local.setBairroEstacionamento (edtBairroEstacionamento.getText().toString());
+                local.setCidEstacionamento (edtCidEstacionamento.getText().toString());
+                local.setEmailEstacionamento (edtEmailEstacionamento.getText().toString());
+                local.setCnpjEstacionamento (edtCnpjEstacionamento.getText().toString());
 
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put(myRef.push().getKey(), local.toMap());

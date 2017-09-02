@@ -12,13 +12,103 @@ import java.util.Map;
 
 public class Local implements Serializable {
 
+    private String proprietEstacionamento;
     private String nomeEstacionamento;
-    private String nomeProprietario;
+    private String cnpjEstacionamento;
+    private String foneEstacionamento;
+    private String endEstacionamento;
+    private String bairroEstacionamento;
+    private String cidEstacionamento;
+    private String EmailEstacionamento;
     private double latitude;
     private double longitude;
     private int qtdVagas;
 
-        public double getLatitude() {
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("nomeEstacionamento", nomeEstacionamento);
+        result.put("proprietEstacionamento", proprietEstacionamento);
+        result.put("cnpjEstacionamento", cnpjEstacionamento);
+        result.put("foneEstacionamento", foneEstacionamento);
+        result.put("endEstacionamento", cnpjEstacionamento);
+        result.put("bairroEstacionamento", bairroEstacionamento);
+        result.put("cidEstacionamento", cidEstacionamento);
+        result.put("EmailEstacionamento", EmailEstacionamento);
+        result.put("latitude", latitude);
+        result.put("longitude", longitude);
+        result.put("qtdVagas", qtdVagas);
+
+        return result;
+    }
+
+
+    public String getProprietEstacionamento() {
+        return proprietEstacionamento;
+    }
+
+    public void setProprietEstacionamento(String proprietEstacionamento) {
+        this.proprietEstacionamento = proprietEstacionamento;
+    }
+
+    public String getNomeEstacionamento() {
+        return nomeEstacionamento;
+    }
+
+    public void setNomeEstacionamento(String nomeEstacionamento) {
+        this.nomeEstacionamento = nomeEstacionamento;
+    }
+
+    public String getCnpjEstacionamento() {
+        return cnpjEstacionamento;
+    }
+
+    public void setCnpjEstacionamento(String cnpjEstacionamento) {
+        this.cnpjEstacionamento = cnpjEstacionamento;
+    }
+
+    public String getFoneEstacionamento() {
+        return foneEstacionamento;
+    }
+
+    public void setFoneEstacionamento(String foneEstacionamento) {
+        this.foneEstacionamento = foneEstacionamento;
+    }
+
+    public String getEndEstacionamento() {
+        return endEstacionamento;
+    }
+
+    public void setEndEstacionamento(String endEstacionamento) {
+        this.endEstacionamento = endEstacionamento;
+    }
+
+    public String getBairroEstacionamento() {
+        return bairroEstacionamento;
+    }
+
+    public void setBairroEstacionamento(String bairroEstacionamento) {
+        this.bairroEstacionamento = bairroEstacionamento;
+    }
+
+    public String getCidEstacionamento() {
+        return cidEstacionamento;
+    }
+
+    public void setCidEstacionamento(String cidEstacionamento) {
+        this.cidEstacionamento = cidEstacionamento;
+    }
+
+    public String getEmailEstacionamento() {
+        return EmailEstacionamento;
+    }
+
+    public void setEmailEstacionamento(String emailEstacionamento) {
+        EmailEstacionamento = emailEstacionamento;
+    }
+
+    public double getLatitude() {
         return latitude;
     }
 
@@ -41,34 +131,4 @@ public class Local implements Serializable {
     public void setQtdVagas(int qtdVagas) {
         this.qtdVagas = qtdVagas;
     }
-
-    public String getNomeEstacionamento() {
-        return nomeEstacionamento;
-    }
-
-    public void setNomeEstacionamento(String nomeEstacionamento) {
-        this.nomeEstacionamento = nomeEstacionamento;
-    }
-
-    public String getNomeProprietario() {
-        return nomeProprietario;
-    }
-
-    public void setNomeProprietario(String nomeProprietario) {
-        this.nomeProprietario = nomeProprietario;
-    }
-
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("nomeEstacionamento", nomeEstacionamento);
-        result.put("nomeProprietario", nomeProprietario);
-        result.put("latitude", latitude);
-        result.put("longitude", longitude);
-        result.put("qtdVagas", qtdVagas);
-
-        return result;
-    }
-
-
 }

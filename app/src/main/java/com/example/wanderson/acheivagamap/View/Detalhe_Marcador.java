@@ -39,7 +39,7 @@ public class Detalhe_Marcador extends AppCompatActivity {
             Local local = (Local) args.getSerializable("Local");
 
             String nomeEstacionamento = local.getNomeEstacionamento();
-            String nomeProprietario = local.getNomeProprietario();
+            String nomeProprietario = local.getProprietEstacionamento();
             double latitude = local.getLatitude();
             double longitude = local.getLongitude();
             int qtdVagas = local.getQtdVagas();

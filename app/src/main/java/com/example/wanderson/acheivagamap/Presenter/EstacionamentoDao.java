@@ -1,6 +1,7 @@
 package com.example.wanderson.acheivagamap.Presenter;
 
 import com.example.wanderson.acheivagamap.Model.Estacionamento;
+import com.example.wanderson.acheivagamap.Model.Local;
 import com.example.wanderson.acheivagamap.Model.Usuario;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -9,25 +10,26 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by Helio on 08/08/2017.
  */
 
-public class EstacionamentoDao extends GenericDao<Estacionamento> {
+public class EstacionamentoDao extends GenericDao<Local> {
 
     private DatabaseReference databaseReference =  FirebaseDatabase.getInstance().getReference();
-    private  DatabaseReference estacionamentoReference =  databaseReference.child("Estacionamento");
+    private  DatabaseReference localReference =  databaseReference.child("Estacionamentos");
 
     @Override
-    public boolean salvar(Estacionamento estacionamento) {
-        estacionamento.getBairroEstacionamento();
-        estacionamento.getCidEstacionamento();
-        estacionamento.getCnpjEstacionamento();
-        estacionamento.getBairroEstacionamento();
-        estacionamento.getProprietEstacionamento();
-        estacionamento.getNomeEstacionamento();
-        estacionamento.getFoneEstacionamento();
-        estacionamento.getEmailEstacionamento();
-       estacionamentoReference .push().setValue(estacionamento);
+    public boolean salvar(Local local) {
+        local.getBairroEstacionamento();
+        local.getCidEstacionamento();
+        local.getCnpjEstacionamento();
+       local.getBairroEstacionamento();
+        local.getProprietEstacionamento();
+        local.getNomeEstacionamento();
+        local.getFoneEstacionamento();
+        local.getEmailEstacionamento();
+       localReference.push().setValue(local);
 
         return false;
     }
+
 
     @Override
     public void pesquisar(String nome) {
@@ -40,7 +42,7 @@ public class EstacionamentoDao extends GenericDao<Estacionamento> {
     }
 
     @Override
-    public boolean listar(Estacionamento estacionamento) {
+    public boolean listar(Local local) {
         return false;
     }
 }

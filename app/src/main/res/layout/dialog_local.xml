@@ -1,42 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:hint="Nome do Estacionamento"
-        android:id="@+id/edtNomeEstacionamento" android:layout_gravity="center_horizontal"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:hint="Nome do Proprietário"
-        android:id="@+id/edtNomePropietario" android:layout_gravity="center_horizontal"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|numberDecimal"
-        android:ems="10"
-        android:hint="Latitude"
-        android:id="@+id/edtLatitude" android:layout_gravity="center_horizontal"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|numberDecimal"
-        android:ems="10"
-        android:hint="Longitude"
-        android:id="@+id/edtLongitude" android:layout_gravity="center_horizontal"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|numberDecimal"
-        android:ems="10"
-        android:hint="Quantidade de Vagas"
-        android:id="@+id/edtQtdVagas" android:layout_gravity="center_horizontal"/>
-</LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:hint="Nome do Estacionamento"
+            android:id="@+id/edtNomeEstacionamento" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:hint="Nome do Proprietário"
+            android:id="@+id/edtPropietEstacionamento" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|numberDecimal"
+            android:ems="10"
+            android:hint="Latitude"
+            android:id="@+id/edtLatitude" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|numberDecimal"
+            android:ems="10"
+            android:hint="Longitude"
+            android:id="@+id/edtLongitude" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|numberDecimal"
+            android:ems="10"
+            android:hint="CNPJ"
+            android:id="@+id/edtCnpjEstacionamento" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|numberDecimal"
+            android:ems="10"
+            android:hint="Quantidade de Vagas"
+            android:id="@+id/edtQtdVagas" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|numberDecimal"
+            android:ems="10"
+            android:hint="Telefone"
+            android:id="@+id/edtFoneEstacionamento" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:hint="Endereço"
+            android:id="@+id/edtEndEstacionamento" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:hint="Bairro"
+            android:id="@+id/edtBairroEstacionamento" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:hint="Cidade"
+            android:id="@+id/edtCidEstacionamento" android:layout_gravity="center_horizontal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:hint="Email"
+            android:layout_marginBottom="50dp"
+            android:id="@+id/edtEmailEstacionamento" android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</ScrollView>

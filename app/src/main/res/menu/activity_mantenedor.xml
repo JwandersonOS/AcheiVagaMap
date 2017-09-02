@@ -16,4 +16,5 @@
         android:title="@string/action_termos"
         app:showAsAction="never" />
 
-    </menu>
+
+</menu>

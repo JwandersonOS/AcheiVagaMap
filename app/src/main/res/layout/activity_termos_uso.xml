@@ -12,17 +12,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+                        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Termos de uso"
-                android:textSize="40sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
                 android:text="TERMO DE USO DA PLATAFORMA DE COMENTÁRIOS
 
     Este termo de uso de plataforma de comentários

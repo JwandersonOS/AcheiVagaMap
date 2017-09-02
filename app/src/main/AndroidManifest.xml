@@ -50,16 +50,16 @@
         <activity
             android:name=".Fragments.MapsFragment"
             android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".View.ActivityAdmin" android:parentActivityName=".Activitys.ActivityPrincipal"/>
-        <activity android:name=".View.Cadastrar_UsuarioActivity" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
-        <activity android:name=".View.ActivityCadastrarEstacionamento" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
-        <activity android:name=".View.Activity_Detalhes_Itens" android:parentActivityName=".View.Activity_Lista_Estacionamento"></activity>
-        <activity android:name=".View.ActivityFiltro" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
-        <activity android:name=".View.Activity_Lista_Estacionamento" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
-        <activity android:name=".View.Activity_Recuperar_Senha" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
-        <activity android:name=".View.ActivitySobre" android:parentActivityName=".Activitys.ActivityPrincipal"/>
-        <activity android:name=".View.Activity_TermosUso" android:parentActivityName=".Activitys.ActivityPrincipal"/>
+        <activity android:name=".View.ActivityMantenedor" android:label="@string/activity_mantenedor" />
+        <activity android:name=".View.Cadastrar_UsuarioActivity" android:label="@string/activity_cadastrar_usuario" android:parentActivityName=".View.ActivityMantenedor"></activity>
+        <activity android:name=".View.Activity_Detalhes_Itens" android:label="@string/activity_detalhes_estacionamentos" android:parentActivityName=".View.Activity_Lista_Estacionamento"></activity>
+        <activity android:name=".View.ActivityFiltro" android:label="@string/activity_filtro" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".View.Activity_Lista_Estacionamento" android:label="@string/activity_listar_estacionamentos"  android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".View.Activity_Recuperar_Senha" android:label="@string/activity_recuperar_senha" android:parentActivityName=".Activitys.ActivityPrincipal"></activity>
+        <activity android:name=".View.ActivitySobre" android:label="@string/activity_sobre" android:parentActivityName=".Activitys.ActivityPrincipal"/>
+        <activity android:name=".View.Activity_TermosUso" android:label="@string/activity_termos_de_uso" android:parentActivityName=".Activitys.ActivityPrincipal"/>
         <activity android:name=".View.Detalhe_Marcador" android:parentActivityName=".Activitys.ActivityPrincipal"/>
+        <activity android:name=".View.Indicar_Estacionamento"  android:label="@string/activity_indicar_estacionamento" android:parentActivityName=".Activitys.ActivityPrincipal"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

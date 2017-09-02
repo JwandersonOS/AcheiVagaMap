@@ -10,7 +10,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="Preencha o campo com o seu email:"
         android:textAlignment="center"
         android:textSize="20sp"/>
